@@ -21,7 +21,7 @@ module.exports = {
 	props: ['invoice'],
 
 	components: {
-		statusIcon: require('app/components/statusIcon.vue'),
+		statusIcon: require('~/components/statusIcon.vue'),
 		itemsTable: require('./itemsTable.vue')
 	}
 }

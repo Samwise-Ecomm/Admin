@@ -56,7 +56,7 @@ module.exports = {
 
 	components: {
 		addressBlock: require('./addressBlock.vue'),
-		statusIcon: require('app/components/statusIcon.vue')
+		statusIcon: require('~/components/statusIcon.vue')
 	},
 
 	methods: {

@@ -24,19 +24,19 @@
 <script>
 // offers/sorters.vue
 module.exports = {
-	components: {
-		sortIcon: require('app/components/dataTable/sortIcon.vue')
-	},
+  components: {
+    sortIcon: require("~/components/dataTable/sortIcon.vue")
+  },
 
-	methods: {
-		sortInput (key) {
-			this.setSort('offers', key)
-			this.$dispatch('GET')
-		}
-	},
+  methods: {
+    sortInput(key) {
+      this.setSort("offers", key)
+      this.$dispatch("GET")
+    }
+  },
 
-	vuex: {
-		actions: require(`app/vuex/actions/dataTables.js`)
-	}
+  vuex: {
+    actions: require(`~/vuex/actions/dataTables.js`)
+  }
 }
 </script>

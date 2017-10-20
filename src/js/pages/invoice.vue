@@ -74,12 +74,12 @@ module.exports = {
 	},
 
 	components: {
-		toolbarBox: require('app/components/invoice/toolbarBox.vue'),
-		customerInfoBox: require('app/components/invoice/customerInfoBox.vue'),
-		cartBox: require('app/components/invoice/cartBox.vue'),
-		modifyCartBox: require('app/components/invoice/modifyCartBox.vue'),
-		modifyCustomerInfoBox: require('app/components/invoice/modifyCustomerInfoBox.vue'),
-		statusButton: require('app/components/invoice/statusButton.vue')
+		toolbarBox: require('~/components/invoice/toolbarBox.vue'),
+		customerInfoBox: require('~/components/invoice/customerInfoBox.vue'),
+		cartBox: require('~/components/invoice/cartBox.vue'),
+		modifyCartBox: require('~/components/invoice/modifyCartBox.vue'),
+		modifyCustomerInfoBox: require('~/components/invoice/modifyCustomerInfoBox.vue'),
+		statusButton: require('~/components/invoice/statusButton.vue')
 	},
 
 	methods: {

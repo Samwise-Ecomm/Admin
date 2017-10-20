@@ -71,14 +71,14 @@ module.exports = {
 	},
 
 	components: {
-		items: require('app/components/offer/items/box.vue'),
-		offerInfo: require('app/components/offer/offerInfo.vue'),
-		tags: require('app/components/tags.vue'),
-		pictureUpload: require('app/components/offer/pictureUpload.vue'),
-		pictures: require('app/components/offer/pictures.vue'),
-		typeInfo: require('app/components/offer/typeInfo.vue'),
-		confirmedButton: require('app/components/confirmedButton.vue'),
-		statusIcon: require('app/components/statusIcon.vue')
+		items: require('~/components/offer/items/box.vue'),
+		offerInfo: require('~/components/offer/offerInfo.vue'),
+		tags: require('~/components/tags.vue'),
+		pictureUpload: require('~/components/offer/pictureUpload.vue'),
+		pictures: require('~/components/offer/pictures.vue'),
+		typeInfo: require('~/components/offer/typeInfo.vue'),
+		confirmedButton: require('~/components/confirmedButton.vue'),
+		statusIcon: require('~/components/statusIcon.vue')
 	},
 
 	events: {

@@ -69,52 +69,52 @@
 
 <script>
 module.exports = {
-	props: ['item', 'index', 'expandedIndex', 'offer'],
+  props: ["item", "index", "expandedIndex", "offer"],
 
-	components: {
-		confirmedButton: require('app/components/confirmedButton.vue'),
-		generalForm: require('./generalForm.vue'),
-		typeForm: require('./typeForm.vue'),
-		addToCart: require('app/components/offers/addToCart.vue')
-	},
+  components: {
+    confirmedButton: require("~/components/confirmedButton.vue"),
+    generalForm: require("./generalForm.vue"),
+    typeForm: require("./typeForm.vue"),
+    addToCart: require("~/components/offers/addToCart.vue")
+  },
 
-	methods: {
-		delete () {
-			if (this.item.id) {
-				this.offer.deleted_items.push(this.item.id)
-			}
-			this.offer.items.splice(this.index, 1)
-		},
+  methods: {
+    delete() {
+      if (this.item.id) {
+        this.offer.deleted_items.push(this.item.id)
+      }
+      this.offer.items.splice(this.index, 1)
+    },
 
-		setPrice (price) {
-			this.item.price = parseFloat(price.replace(',', '')) * 100
-		}
-	}
+    setPrice(price) {
+      this.item.price = parseFloat(price.replace(",", "")) * 100
+    }
+  }
 }
 </script>
 
 <style>
 .input-cell {
-	padding: 3px !important;
-	height: 35px;
+  padding: 3px !important;
+  height: 35px;
 }
 
 .input-cell input {
-	border-width: 0 0 2px 0;
-	width: 100%;
-	height: 100%;
+  border-width: 0 0 2px 0;
+  width: 100%;
+  height: 100%;
 }
 
 .input-cell input:focus {
-	outline: none;
-	border-color: #3c8dbc !important;
+  outline: none;
+  border-color: #3c8dbc !important;
 }
 
 .input-cell input:hover {
-	border-color: #A2C6DA;
+  border-color: #a2c6da;
 }
 
 tr.dark {
-	background: #f9f9f9;
+  background: #f9f9f9;
 }
 </style>

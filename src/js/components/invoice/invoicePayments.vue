@@ -42,7 +42,7 @@ module.exports = {
 	props: ['cart', 'payments'],
 
 	components: {
-		statusIcon: require('app/components/statusIcon.vue')
+		statusIcon: require('~/components/statusIcon.vue')
 	}
 }
 </script>

@@ -72,8 +72,8 @@ module.exports = {
 	},
 
 	components: {
-		'tags': require('app/components/tags.vue'),
-		'statusIcon': require('app/components/statusIcon.vue')
+		'tags': require('~/components/tags.vue'),
+		'statusIcon': require('~/components/statusIcon.vue')
 	},
 
 	methods: {

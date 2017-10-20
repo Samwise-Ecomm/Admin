@@ -22,52 +22,58 @@
 
 <script>
 module.exports = {
-	data () {
-		return {
-			working: false
-		}
-	},
+  data() {
+    return {
+      working: false
+    }
+  },
 
-	props: ['invoice'],
+  props: ["invoice"],
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		destroy () {
-			if (this.working) {
-				return
-			}
-			this.working = true
+  methods: {
+    destroy() {
+      if (this.working) {
+        return
+      }
+      this.working = true
 
-			this.$refs.destroy.working()
-			this.$http.delete(`/api/cancelled-invoice/${this.invoice.id}`).then(response => {
-				this.working = false
-				this.$refs.destroy.check()
-				this.$dispatch('GET')
-			}, () => {
-				this.working = false
-				this.$refs.destroy.fail()
-			})
-		},
+      this.$refs.destroy.working()
+      this.$http.delete(`/api/cancelled-invoice/${this.invoice.id}`).then(
+        response => {
+          this.working = false
+          this.$refs.destroy.check()
+          this.$dispatch("GET")
+        },
+        () => {
+          this.working = false
+          this.$refs.destroy.fail()
+        }
+      )
+    },
 
-		restore () {
-			if (this.working) {
-				return
-			}
-			this.working = true
+    restore() {
+      if (this.working) {
+        return
+      }
+      this.working = true
 
-			this.$refs.restore.working()
-			this.$http.patch(`cancelled-invoice/${this.invoice.id}`).then(response => {
-				this.working = false
-				this.$refs.restore.check()
-				this.$dispatch('GET')
-			}, () => {
-				this.working = false
-				this.$refs.restore.fail()
-			})
-		}
-	}
+      this.$refs.restore.working()
+      this.$http.patch(`cancelled-invoice/${this.invoice.id}`).then(
+        response => {
+          this.working = false
+          this.$refs.restore.check()
+          this.$dispatch("GET")
+        },
+        () => {
+          this.working = false
+          this.$refs.restore.fail()
+        }
+      )
+    }
+  }
 }
 </script>

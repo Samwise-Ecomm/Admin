@@ -23,7 +23,7 @@ module.exports = {
 	components: {
 		addressBlock: require('./addressBlock.vue'),
 		customerInfo: require('./customerInfo.vue'),
-		statusIcon: require('app/components/statusIcon.vue')
+		statusIcon: require('~/components/statusIcon.vue')
 	},
 
 	methods: {

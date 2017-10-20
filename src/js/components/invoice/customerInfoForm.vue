@@ -78,7 +78,7 @@
 module.exports = {
 	components: {
 		contactFields: require('./contactFields.vue'),
-		statusIcon: require('app/components/statusIcon.vue')
+		statusIcon: require('~/components/statusIcon.vue')
 	},
 
 	computed: {
@@ -137,7 +137,7 @@ module.exports = {
 			billing_address: state => state.newInvoice.billing_address
 		},
 
-		actions: require('app/vuex/actions/newInvoice.js')
+		actions: require('~/vuex/actions/newInvoice.js')
 	}
 }
 </script>

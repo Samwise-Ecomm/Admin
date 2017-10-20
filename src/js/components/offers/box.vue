@@ -25,58 +25,61 @@
 
 <script>
 module.exports = {
-	data () {
-		return {
-			offersCollection: {
-				pages: 1
-			},
-			loaded: false
-		}
-	},
+  data() {
+    return {
+      offersCollection: {
+        pages: 1
+      },
+      loaded: false
+    }
+  },
 
-	ready () {
-		this.getOffers()
-	},
+  ready() {
+    this.getOffers()
+  },
 
-	components: {
-		offersTable: require('./table.vue'),
-		statusIcon: require('app/components/statusIcon.vue'),
-		pagination: require('app/components/dataTable/pagination.vue'),
-		limitSelector: require('app/components/dataTable/limitSelector.vue'),
-		queryInput: require('app/components/dataTable/queryInput.vue')
-	},
+  components: {
+    offersTable: require("./table.vue"),
+    statusIcon: require("~/components/statusIcon.vue"),
+    pagination: require("~/components/dataTable/pagination.vue"),
+    limitSelector: require("~/components/dataTable/limitSelector.vue"),
+    queryInput: require("~/components/dataTable/queryInput.vue")
+  },
 
-	events: {
-		GET () {
-			this.getOffers()
-		},
+  events: {
+    GET() {
+      this.getOffers()
+    },
 
-		REFRESH () {
-			this.expandIndex(-1)
-			this.getOffers()
-		}
-	},
+    REFRESH() {
+      this.expandIndex(-1)
+      this.getOffers()
+    }
+  },
 
-	methods: {
-		getOffers () {
-			this.$refs.status.working()
+  methods: {
+    getOffers() {
+      this.$refs.status.working()
 
-			this.$http.get('offers', this.request).then(response => {
-				this.$refs.status.check()
-				this.offersCollection = response.data
-			}, () => {
-				this.$refs.status.fail()
-			})
-		}
-	},
+      this.$http.get("offers", this.request).then(
+        response => {
+          this.$refs.status.check()
+          this.offersCollection = response.data
+        },
+        () => {
+          this.$refs.status.fail()
+        }
+      )
+    }
+  },
 
-	vuex: {
-		getters: {
-			request: state => state.offers.request,
-			status: state => state.offers.status
-		},
+  vuex: {
+    getters: {
+      request: state => state.offers.request,
+      status: state => state.offers.status
+    },
 
-		actions: require('app/vuex/actions/dataTables.js')
-	}
+    actions: require("~/vuex/actions/dataTables.js")
+  }
 }
 </script>

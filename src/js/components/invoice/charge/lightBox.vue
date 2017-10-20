@@ -78,115 +78,128 @@
 
 <script>
 module.exports = {
-	data: function() {
-		return {
-			cardNumber: "",
-			cvc: "",
-			year: new Date().getFullYear(),
-			zip: 0,
-			month: 1,
-			charging: false,
-			total: -1
-		}
-	},
+  data: function() {
+    return {
+      cardNumber: "",
+      cvc: "",
+      year: new Date().getFullYear(),
+      zip: 0,
+      month: 1,
+      charging: false,
+      total: -1
+    }
+  },
 
-	props: {
-		id: {
-			type: Number
-		},
+  props: {
+    id: {
+      type: Number
+    },
 
-		show: {
-			type: Boolean,
-			required: true,
-			twoWay: true
-		}
-	},
+    show: {
+      type: Boolean,
+      required: true,
+      twoWay: true
+    }
+  },
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue'),
-		cardInput: require('./cardInput.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue"),
+    cardInput: require("./cardInput.vue")
+  },
 
-	watch: {
-		show () {
-			if (this.show) {
-				this.total = 0
-				this.getInvoice()
-			}
-		}
-	},
+  watch: {
+    show() {
+      if (this.show) {
+        this.total = 0
+        this.getInvoice()
+      }
+    }
+  },
 
-	created () {
-		// init stripe
-		this.$nextTick(function() {
-			Stripe.setPublishableKey(this.publicKey)
-		})
-	},
+  created() {
+    // init stripe
+    this.$nextTick(function() {
+      Stripe.setPublishableKey(this.publicKey)
+    })
+  },
 
-	computed: {
-		thisYear () {
-			return new Date().getFullYear()
-		},
+  computed: {
+    thisYear() {
+      return new Date().getFullYear()
+    },
 
-		publicKey () {
-			return $('#stripe-key-public').attr('content')
-		}
-	},
+    publicKey() {
+      return $("#stripe-key-public").attr("content")
+    }
+  },
 
-	methods: {
-		charge () {
-			this.charging = true
-			this.$refs.status.working()
+  methods: {
+    charge() {
+      this.charging = true
+      this.$refs.status.working()
 
-			var cardInfo = {
-				number: this.cardNumber,
-				cvc: this.cvc,
-				exp_month: this.month,
-				exp_year: this.year,
-				address_zip: this.zip
-			}
+      var cardInfo = {
+        number: this.cardNumber,
+        cvc: this.cvc,
+        exp_month: this.month,
+        exp_year: this.year,
+        address_zip: this.zip
+      }
 
-			var token = Stripe.card.createToken(cardInfo, function(status, response) {
-				if (response.error) {
-					this.$root.notify('danger', 'Error', response.error.message)
+      var token = Stripe.card.createToken(
+        cardInfo,
+        function(status, response) {
+          if (response.error) {
+            this.$root.notify("danger", "Error", response.error.message)
 
-					this.charging = false
-					this.$refs.status.fail()
-					return
-				}
+            this.charging = false
+            this.$refs.status.fail()
+            return
+          }
 
-				var request = {
-					token: response,
-					amount: this.total
-				}
+          var request = {
+            token: response,
+            amount: this.total
+          }
 
-				this.$http.post(`/api/invoice/${this.id}/payment`, request).then(function(response) {
-					this.charging = false
-					this.$root.notify('info', 'Charged', 'The invoice was successfully charged.', 3)
-					this.number = ""
-					this.cvc = ""
-					this.exp_month = 1
-					this.exp_year = this.thisYear
-					this.show = false
+          this.$http.post(`/api/invoice/${this.id}/payment`, request).then(
+            function(response) {
+              this.charging = false
+              this.$root.notify(
+                "info",
+                "Charged",
+                "The invoice was successfully charged.",
+                3
+              )
+              this.number = ""
+              this.cvc = ""
+              this.exp_month = 1
+              this.exp_year = this.thisYear
+              this.show = false
 
-					this.$dispatch('PAID', response.data)
-					// this.payments.push(response.data)
+              this.$dispatch("PAID", response.data)
+              // this.payments.push(response.data)
 
-					this.$refs.status.check()
-				}, function() {
-					this.charging = false
-					this.$refs.status.fail()
-				})
-			}.bind(this))
-		},
+              this.$refs.status.check()
+            },
+            function() {
+              this.charging = false
+              this.$refs.status.fail()
+            }
+          )
+        }.bind(this)
+      )
+    },
 
-		getInvoice () {
-			this.$http.get(`/api/invoice/${this.id}`).then(function(response) {
-				var data = response.data
-				this.total = data.due
-				this.zip = (data.seperate_billing) ? data.billing_address.zip : data.shipping_address.zip
-			})
-		}
-	},
+    getInvoice() {
+      this.$http.get(`/api/invoice/${this.id}`).then(function(response) {
+        var data = response.data
+        this.total = data.due
+        this.zip = data.seperate_billing
+          ? data.billing_address.zip
+          : data.shipping_address.zip
+      })
+    }
+  }
 }
 </script>

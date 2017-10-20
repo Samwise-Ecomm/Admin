@@ -46,10 +46,10 @@ module.exports = {
 		invoicesTable: require('./table.vue'),
 		invoiceTabs: require('./tabs.vue'),
 		cancelledInvoicesTable: require('./cancelled/table.vue'),
-		statusIcon: require('app/components/statusIcon.vue'),
-		pagination: require('app/components/dataTable/pagination.vue'),
-		limitSelector: require('app/components/dataTable/limitSelector.vue'),
-		queryInput: require('app/components/dataTable/queryInput.vue')
+		statusIcon: require('~/components/statusIcon.vue'),
+		pagination: require('~/components/dataTable/pagination.vue'),
+		limitSelector: require('~/components/dataTable/limitSelector.vue'),
+		queryInput: require('~/components/dataTable/queryInput.vue')
 	},
 
 	events: {
@@ -83,7 +83,7 @@ module.exports = {
 			status: state => state.invoices.status
 		},
 
-		actions: require('app/vuex/actions/dataTables.js')
+		actions: require('~/vuex/actions/dataTables.js')
 	}
 }
 </script>

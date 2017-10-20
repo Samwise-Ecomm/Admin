@@ -67,16 +67,16 @@
 
 <script>
 module.exports = {
-	props: ['invoice'],
+  props: ["invoice"],
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		setPhone(phone) {
-			this.invoice.phone = phone
-		}
-	}
+  methods: {
+    setPhone(phone) {
+      this.invoice.phone = phone
+    }
+  }
 }
 </script>

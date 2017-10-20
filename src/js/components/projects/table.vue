@@ -15,18 +15,18 @@
 
 <script>
 module.exports = {
-	props: ['invoices'],
+  props: ["invoices"],
 
-	components: {
-		summary: require('app/components/invoice/summary.vue'),
-		sorters: require('./sorters.vue'),
-		row: require('./row.vue')
-	},
+  components: {
+    summary: require("~/components/invoice/summary.vue"),
+    sorters: require("./sorters.vue"),
+    row: require("./row.vue")
+  },
 
-	vuex: {
-		getters: {
-			expandedIndex: state => state.invoices.expandedIndex
-		}
-	}
+  vuex: {
+    getters: {
+      expandedIndex: state => state.invoices.expandedIndex
+    }
+  }
 }
 </script>

@@ -55,32 +55,32 @@
 
 <script>
 module.exports = {
-	props: ['pages', 'mode'],
+  props: ["pages", "mode"],
 
-	computed: {
-		page() {
-			if (this.mode == 'offers') {
-				return this.offersPage + 1
-			} else if (this.mode == 'invoices') {
-				return this.invoicesPage + 1
-			}
-		}
-	},
+  computed: {
+    page() {
+      if (this.mode == "offers") {
+        return this.offersPage + 1
+      } else if (this.mode == "invoices") {
+        return this.invoicesPage + 1
+      }
+    }
+  },
 
-	methods: {
-		pageInput(page) {
-			this.changePage(this.mode, page - 1)
-			this.$dispatch('GET')
-		}
-	},
+  methods: {
+    pageInput(page) {
+      this.changePage(this.mode, page - 1)
+      this.$dispatch("GET")
+    }
+  },
 
-	vuex: {
-		getters: {
-			invoicesPage: state => state.invoices.page,
-			offersPage: state => state.offers.page
-		},
+  vuex: {
+    getters: {
+      invoicesPage: state => state.invoices.page,
+      offersPage: state => state.offers.page
+    },
 
-		actions: require(`app/vuex/actions/dataTables.js`)
-	}
+    actions: require(`~/vuex/actions/dataTables.js`)
+  }
 }
 </script>

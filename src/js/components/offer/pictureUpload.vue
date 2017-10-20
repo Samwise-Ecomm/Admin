@@ -27,103 +27,107 @@
 
 <script>
 module.exports = {
-	data: function() {
-		return {
-			working: false,
-			uploadedCount: 0,
-			percent: 0,
-			index: 0,
-			count: 0,
-			errors: [],
-			files: []
-		}
-	},
+  data: function() {
+    return {
+      working: false,
+      uploadedCount: 0,
+      percent: 0,
+      index: 0,
+      count: 0,
+      errors: [],
+      files: []
+    }
+  },
 
-	props: ['offerId'],
+  props: ["offerId"],
 
-	computed: {
-		selectedCount () {
-			return this.files.length
-		},
+  computed: {
+    selectedCount() {
+      return this.files.length
+    },
 
-		status () {
-			if (this.selectedCount == 0 && this.uploadedCount == 0) {
-				return 'Select Images to Upload'
-			} else if (this.selectedCount == 1) {
-				return `1 Image Selected (${this.uploadedCount} Uploaded)`
-			} else {
-				return `${this.selectedCount} Images Selected (${this.uploadedCount} Uploaded)`
-			}
-		}
-	},
+    status() {
+      if (this.selectedCount == 0 && this.uploadedCount == 0) {
+        return "Select Images to Upload"
+      } else if (this.selectedCount == 1) {
+        return `1 Image Selected (${this.uploadedCount} Uploaded)`
+      } else {
+        return `${this.selectedCount} Images Selected (${this
+          .uploadedCount} Uploaded)`
+      }
+    }
+  },
 
-	components: {
-		progressBar: require('app/components/progressBar.vue'),
-		statusIcon: require('app/components/statusIcon.vue')
-	},
+  components: {
+    progressBar: require("~/components/progressBar.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		start (e) {
-			e.preventDefault()
-			this.working = true
-			this.$refs.upload.working()
-			this.files = this.$els.uploader.files
-			this.uploadedCount = 0
+  methods: {
+    start(e) {
+      e.preventDefault()
+      this.working = true
+      this.$refs.upload.working()
+      this.files = this.$els.uploader.files
+      this.uploadedCount = 0
 
-			if (this.selectedCount > 0) {
-				this.upload()
-			} else {
-				this.end()
-			}
-		},
+      if (this.selectedCount > 0) {
+        this.upload()
+      } else {
+        this.end()
+      }
+    },
 
-		upload () {
-			var options = {
-				upload: {
-					onprogress: (e) => {
-						var percent = parseInt(e.loaded / e.total * 100)
-						this.$refs.progress.percent = percent
-					}
-				}
-			}
+    upload() {
+      var options = {
+        upload: {
+          onprogress: e => {
+            var percent = parseInt(e.loaded / e.total * 100)
+            this.$refs.progress.percent = percent
+          }
+        }
+      }
 
-			var request = new FormData()
-			request.append('picture', this.files[this.uploadedCount])
+      var request = new FormData()
+      request.append("picture", this.files[this.uploadedCount])
 
-			this.$http.post(`offer/${this.offerId}/image`, request, options).then(response => {
-				this.$refs.progress.next()
-				this.$dispatch('NEW_PICTURE', response.data)
+      this.$http.post(`offer/${this.offerId}/image`, request, options).then(
+        response => {
+          this.$refs.progress.next()
+          this.$dispatch("NEW_PICTURE", response.data)
 
-				this.uploadedCount++
-				if (this.uploadedCount < this.selectedCount) {
-					this.upload()
-				} else {
-					this.end()
-				}
-			}, () => {
-				this.$refs.progress.next()
-				// TODO: THROW ERR
+          this.uploadedCount++
+          if (this.uploadedCount < this.selectedCount) {
+            this.upload()
+          } else {
+            this.end()
+          }
+        },
+        () => {
+          this.$refs.progress.next()
+          // TODO: THROW ERR
 
-				this.uploadedCount++
-				if (this.uploadedCount < this.selectedCount) {
-					this.upload()
-				} else {
-					this.end()
-				}
-			})
-		},
+          this.uploadedCount++
+          if (this.uploadedCount < this.selectedCount) {
+            this.upload()
+          } else {
+            this.end()
+          }
+        }
+      )
+    },
 
-		end () {
-			this.working = false
-			this.$refs.upload.check()
+    end() {
+      this.working = false
+      this.$refs.upload.check()
 
-			setTimeout(() => {
-				if (!this.working) {
-					this.files = []
-					this.uploadedCount = 0
-				}
-			}, 5000)
-		}
-	}
+      setTimeout(() => {
+        if (!this.working) {
+          this.files = []
+          this.uploadedCount = 0
+        }
+      }, 5000)
+    }
+  }
 }
 </script>

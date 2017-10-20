@@ -4,6 +4,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const ENTRY_FILE = path.resolve(__dirname, 'src/js/main.js');
+const JS_SRC_DIR = path.resolve(__dirname, 'src/js');
 const STATIC_DIR = path.resolve(__dirname, 'src/static');
 
 module.exports = {
@@ -53,6 +54,11 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true
+  },
+  resolve: {
+    alias: {
+      '~': JS_SRC_DIR,
+    }
   },
   performance: {
     hints: false

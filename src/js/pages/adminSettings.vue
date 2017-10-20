@@ -12,9 +12,9 @@
 
 <script>
 module.exports = {
-	components: {
-		registerUser: require('app/components/adminSettings/registerUser/box.vue'),
-		userPrivileges: require('app/components/adminSettings/userPrivileges/box.vue')
-	}
+  components: {
+    registerUser: require("~/components/adminSettings/registerUser/box.vue"),
+    userPrivileges: require("~/components/adminSettings/userPrivileges/box.vue")
+  }
 }
 </script>

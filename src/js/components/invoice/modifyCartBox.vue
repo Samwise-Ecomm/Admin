@@ -17,8 +17,8 @@
 
 <script>
 module.exports = {
-	components: {
-		statusIcon: require('app/components/statusIcon.vue')
-	}
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  }
 }
 </script>

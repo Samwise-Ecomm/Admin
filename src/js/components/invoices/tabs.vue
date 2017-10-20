@@ -33,20 +33,20 @@
 
 <script>
 module.exports = {
-	methods: {
-		statusInput(status) {
-			this.changePage(0)
-			this.setStatus(status)
-			this.$dispatch('GET')
-		}
-	},
+  methods: {
+    statusInput(status) {
+      this.changePage(0)
+      this.setStatus(status)
+      this.$dispatch("GET")
+    }
+  },
 
-	vuex: {
-		getters: {
-			status: state => state.invoices.status
-		},
+  vuex: {
+    getters: {
+      status: state => state.invoices.status
+    },
 
-		actions: require(`app/vuex/actions/dataTables.js`)
-	}
+    actions: require(`~/vuex/actions/dataTables.js`)
+  }
 }
 </script>

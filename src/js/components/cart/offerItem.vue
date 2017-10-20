@@ -48,7 +48,7 @@ module.exports = {
 			cart: state => state.cart
 		},
 
-		actions: require('app/vuex/actions/cart.js')
+		actions: require('~/vuex/actions/cart.js')
 	}
 }
 </script>

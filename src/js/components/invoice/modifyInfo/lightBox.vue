@@ -32,62 +32,65 @@
 
 <script>
 module.exports = {
-	data () {
-		return {
-			loaded: false,
-			invoice: {}
-		}
-	},
+  data() {
+    return {
+      loaded: false,
+      invoice: {}
+    }
+  },
 
-	props: ['show', 'id'],
+  props: ["show", "id"],
 
-	components: {
-		infoForm: require('./infoForm.vue'),
-		statusIcon: require('app/components/statusIcon.vue')
-	},
+  components: {
+    infoForm: require("./infoForm.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	watch: {
-		show () {
-			if (this.show) {
-				this.loaded = false
-				this.get()
-			}
-		}
-	},
+  watch: {
+    show() {
+      if (this.show) {
+        this.loaded = false
+        this.get()
+      }
+    }
+  },
 
-	methods: {
-		get () {
-			this.$http.get(`invoice/${this.id}`).then(response => {
-				this.loaded = true
-				this.$set('invoice', response.data)
-			})
-		},
+  methods: {
+    get() {
+      this.$http.get(`invoice/${this.id}`).then(response => {
+        this.loaded = true
+        this.$set("invoice", response.data)
+      })
+    },
 
-		save () {
-			this.$refs.save.working()
+    save() {
+      this.$refs.save.working()
 
-			var request = {
-				phone: this.invoice.phone,
-				email: this.invoice.email,
-				seperate_billing: this.invoice.seperate_billing,
-				shipping_address: this.invoice.shipping_address,
-				billing_address: this.invoice.billing_address
-			}
+      var request = {
+        phone: this.invoice.phone,
+        email: this.invoice.email,
+        seperate_billing: this.invoice.seperate_billing,
+        shipping_address: this.invoice.shipping_address,
+        billing_address: this.invoice.billing_address
+      }
 
-			this.$http.patch(`invoice/${this.invoice.id}`, request).then(response => {
-				this.$refs.save.check()
-				this.$dispatch('GET')
-				this.show = false
-			}, () => {
-				this.$refs.save.fail()
-			})
-		}
-	}
+      this.$http.patch(`invoice/${this.invoice.id}`, request).then(
+        response => {
+          this.$refs.save.check()
+          this.$dispatch("GET")
+          this.show = false
+        },
+        () => {
+          this.$refs.save.fail()
+        }
+      )
+    }
+  }
 }
 </script>
 
 <style>
 #infoLightbox {
-	width: 90%;
+  width: 90%;
 }
 </style>

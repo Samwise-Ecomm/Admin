@@ -18,45 +18,48 @@
 
 <script>
 module.exports = {
-	data() {
-		return {
-			query: '',
-			results: []
-		}
-	},
+  data() {
+    return {
+      query: "",
+      results: []
+    }
+  },
 
-	props: ['cart'],
+  props: ["cart"],
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue'),
-		resultsTable: require('./table.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue"),
+    resultsTable: require("./table.vue")
+  },
 
-	watch: {
-		query () {
-			this.$refs.search.working()
-		}
-	},
+  watch: {
+    query() {
+      this.$refs.search.working()
+    }
+  },
 
-	methods: {
-		searchInventory () {
-			if (this.query == '') {
-				this.$set('results', [])
-				this.$refs.search.check()
-				return
-			}
+  methods: {
+    searchInventory() {
+      if (this.query == "") {
+        this.$set("results", [])
+        this.$refs.search.check()
+        return
+      }
 
-			var query = {
-				_query: this.query
-			}
+      var query = {
+        _query: this.query
+      }
 
-			this.$http.get('items', query).then(response => {
-				this.$refs.search.check()
-				this.$set('results', response.data.body)
-			}, () => {
-				this.$refs.search.fail()
-			})
-		}
-	}
+      this.$http.get("items", query).then(
+        response => {
+          this.$refs.search.check()
+          this.$set("results", response.data.body)
+        },
+        () => {
+          this.$refs.search.fail()
+        }
+      )
+    }
+  }
 }
 </script>

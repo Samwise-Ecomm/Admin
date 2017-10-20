@@ -53,7 +53,7 @@ module.exports = {
 			offersQuery: state => state.offers.query
 		},
 
-		actions: require(`app/vuex/actions/dataTables.js`)
+		actions: require(`~/vuex/actions/dataTables.js`)
 	}
 }
 </script>

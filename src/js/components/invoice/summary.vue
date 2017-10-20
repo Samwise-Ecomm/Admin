@@ -52,47 +52,51 @@
 
 <script>
 module.exports = {
-	props: ['invoice'],
+  props: ["invoice"],
 
-	components: {
-		InvoiceItemsTable: require('./itemsTable.vue'),
-		InvoicePayments: require('./invoicePayments.vue'),
-		printButton: require('./printButton.vue'),
-		chargeButton: require('./charge/button.vue'),
-		modifyInfoButton: require('./modifyInfo/button.vue'),
-		modifyCartButton: require('./modifyCart/button.vue'),
-		customerInfo: require('./customerInfo.vue'),
-		confirmedButton: require('app/components/confirmedButton.vue'),
-		statusIcon: require('app/components/statusIcon.vue'),
-	},
+  components: {
+    InvoiceItemsTable: require("./itemsTable.vue"),
+    InvoicePayments: require("./invoicePayments.vue"),
+    printButton: require("./printButton.vue"),
+    chargeButton: require("./charge/button.vue"),
+    modifyInfoButton: require("./modifyInfo/button.vue"),
+    modifyCartButton: require("./modifyCart/button.vue"),
+    customerInfo: require("./customerInfo.vue"),
+    confirmedButton: require("~/components/confirmedButton.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	events: {
-		PAID (payment) {
-			this.invoice.cart.paid += payment.amount
-			this.invoice.cart.due -= payment.amount
-			this.invoice.payments.push(payment)
-		}
-	},
+  events: {
+    PAID(payment) {
+      this.invoice.cart.paid += payment.amount
+      this.invoice.cart.due -= payment.amount
+      this.invoice.payments.push(payment)
+    }
+  },
 
-	methods: {
-		delete () {
-			this.$http.delete(`/api/invoice/${this.invoice.id}`).then(response => {
-				this.$refs.delete.check()
-				this.$dispatch('REFRESH')
-			}, () => {
-				this.$refs.delete.fail()
-			})
-		},
+  methods: {
+    delete() {
+      this.$http.delete(`/api/invoice/${this.invoice.id}`).then(
+        response => {
+          this.$refs.delete.check()
+          this.$dispatch("REFRESH")
+        },
+        () => {
+          this.$refs.delete.fail()
+        }
+      )
+    },
 
-		email () {
-			this.$http.post(`email/invoice/${this.invoice.id}`).then(() => {
-				this.$refs.email.check()
-			}, () => {
-				this.$refs.email.fail()
-			})
-		},
-
-		
-	}
+    email() {
+      this.$http.post(`email/invoice/${this.invoice.id}`).then(
+        () => {
+          this.$refs.email.check()
+        },
+        () => {
+          this.$refs.email.fail()
+        }
+      )
+    }
+  }
 }
 </script>

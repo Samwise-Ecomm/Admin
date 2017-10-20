@@ -40,7 +40,7 @@ module.exports = {
 			expandedIndex: state => state.invoices.expandedIndex
 		},
 
-		actions: require(`app/vuex/actions/dataTables.js`)
+		actions: require(`~/vuex/actions/dataTables.js`)
 	}
 }
 </script>

@@ -47,37 +47,40 @@
 
 <script>
 module.exports = {
-	data () {
-		return {
-			name: '',
-			email: '',
-			password: '',
-			passwordConfirmation: ''
-		}
-	},
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmation: ""
+    }
+  },
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		register () {
-			this.$refs.register.working()
+  methods: {
+    register() {
+      this.$refs.register.working()
 
-			var request = {
-				name: this.name,
-				email: this.email,
-				password: this.password,
-				password_confirmation: this.passwordConfirmation
-			}
+      var request = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.passwordConfirmation
+      }
 
-			this.$http.post('auth/register', request).then(response => {
-				console.log(response)
-				this.$refs.register.check()
-			}, () => {
-				this.$refs.register.fail()
-			})
-		}
-	}
+      this.$http.post("auth/register", request).then(
+        response => {
+          console.log(response)
+          this.$refs.register.check()
+        },
+        () => {
+          this.$refs.register.fail()
+        }
+      )
+    }
+  }
 }
 </script>

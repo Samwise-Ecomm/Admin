@@ -8,8 +8,8 @@
 
 <script>
 module.exports = {
-	components: {
-		invoicesBox: require('app/components/invoices/box.vue')
-	}
+  components: {
+    invoicesBox: require("~/components/invoices/box.vue")
+  }
 }
 </script>

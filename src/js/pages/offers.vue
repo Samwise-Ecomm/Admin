@@ -14,8 +14,8 @@
 
 <script>
 module.exports = {
-	components: {
-		offersBox: require('app/components/offers/box.vue')
-	}
+  components: {
+    offersBox: require("~/components/offers/box.vue")
+  }
 }
 </script>

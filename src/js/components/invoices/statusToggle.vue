@@ -8,39 +8,42 @@
 
 <script>
 module.exports = {
-	data () {
-		return {
-			working: false
-		}
-	},
+  data() {
+    return {
+      working: false
+    }
+  },
 
-	props: ['mode', 'state', 'id', 'size'],
+  props: ["mode", "state", "id", "size"],
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		toggleState () {
-			if (this.working) {
-				return
-			}
+  methods: {
+    toggleState() {
+      if (this.working) {
+        return
+      }
 
-			this.working = true
-			this.$refs.icon.working()
+      this.working = true
+      this.$refs.icon.working()
 
-			var request = {}
-			request[this.mode] = !this.state
-			
-			this.$http.patch(`invoice/${this.id}`, request).then(response => {
-				this.state = !this.state
-				this.$refs.icon.check()
-				this.working = false
-			}, () => {
-				this.$refs.icon.fail()
-				this.working = false
-			})
-		}
-	}
+      var request = {}
+      request[this.mode] = !this.state
+
+      this.$http.patch(`invoice/${this.id}`, request).then(
+        response => {
+          this.state = !this.state
+          this.$refs.icon.check()
+          this.working = false
+        },
+        () => {
+          this.$refs.icon.fail()
+          this.working = false
+        }
+      )
+    }
+  }
 }
 </script>

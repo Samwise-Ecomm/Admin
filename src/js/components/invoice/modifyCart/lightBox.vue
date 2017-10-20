@@ -31,70 +31,77 @@
 
 <script>
 module.exports = {
-	data () {
-		return {
-			loaded: false,
-			cart: {},
-			deleted: []
-		}
-	},
+  data() {
+    return {
+      loaded: false,
+      cart: {},
+      deleted: []
+    }
+  },
 
-	props: ['show', 'id'],
+  props: ["show", "id"],
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue'),
-		cartTable: require('./table.vue'),
-		searchQuery: require('./search/query.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue"),
+    cartTable: require("./table.vue"),
+    searchQuery: require("./search/query.vue")
+  },
 
-	watch: {
-		show () {
-			if (this.show) {
-				this.loaded = false
-				this.getCart()
-			}
-		}
-	},
+  watch: {
+    show() {
+      if (this.show) {
+        this.loaded = false
+        this.getCart()
+      }
+    }
+  },
 
-	events: {
-		DELETE_ITEM_BY_INDEX (index) {
-			if (this.cart.items[index].id) {
-				this.deleted.push(this.cart.items[index].id)
-			}
+  events: {
+    DELETE_ITEM_BY_INDEX(index) {
+      if (this.cart.items[index].id) {
+        this.deleted.push(this.cart.items[index].id)
+      }
 
-			this.cart.items.splice(index, 1)
-		}
-	},
+      this.cart.items.splice(index, 1)
+    }
+  },
 
-	methods: {
-		getCart () {
-			this.$http.get(`invoice/${this.id}`).then(response => {
-				this.loaded = true
-				this.$set('cart', response.data.cart)
-			})
-		},
+  methods: {
+    getCart() {
+      this.$http.get(`invoice/${this.id}`).then(response => {
+        this.loaded = true
+        this.$set("cart", response.data.cart)
+      })
+    },
 
-		save () {
-			if (this.$refs.table.hasErrors) {
-				this.$root.notify('danger', 'Invalid Cart', 'Fix errors on cart before submitting.')
-				this.$refs.save.fail()
-				return
-			}
+    save() {
+      if (this.$refs.table.hasErrors) {
+        this.$root.notify(
+          "danger",
+          "Invalid Cart",
+          "Fix errors on cart before submitting."
+        )
+        this.$refs.save.fail()
+        return
+      }
 
-			this.$refs.save.working()
-			var request = {
-				deleted: this.deleted,
-				items: this.cart.items
-			}
+      this.$refs.save.working()
+      var request = {
+        deleted: this.deleted,
+        items: this.cart.items
+      }
 
-			this.$http.post(`invoice/${this.id}/cart`, request).then(response => {
-				this.$refs.save.check()
-				this.$dispatch('GET')
-				this.show = false
-			}, () => {
-				this.$refs.save.fail()
-			})
-		}
-	}
+      this.$http.post(`invoice/${this.id}/cart`, request).then(
+        response => {
+          this.$refs.save.check()
+          this.$dispatch("GET")
+          this.show = false
+        },
+        () => {
+          this.$refs.save.fail()
+        }
+      )
+    }
+  }
 }
 </script>

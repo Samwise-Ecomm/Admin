@@ -42,7 +42,7 @@ module.exports = {
 			count: state => state.cart.count,
 			offers: state => state.cart.offers
 		},
-		actions: require('app/vuex/actions/cart.js')
+		actions: require('~/vuex/actions/cart.js')
 	}
 }
 </script>

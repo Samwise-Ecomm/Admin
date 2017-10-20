@@ -31,50 +31,51 @@
 
 <script>
 module.exports = {
-	data() {
-		return {
-			users: []
-		}
-	},
+  data() {
+    return {
+      users: []
+    }
+  },
 
-	ready() {
-		this.get()
-	},
+  ready() {
+    this.get()
+  },
 
-	components: {
-		userRow: require('./userRow.vue'),
-		statusIcon: require('app/components/statusIcon.vue')
-	},
+  components: {
+    userRow: require("./userRow.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		get () {
-			this.$http.get('users').then(response => {
-				this.$set('users', response.data.body)
-			})
-		}
-	}
+  methods: {
+    get() {
+      this.$http.get("users").then(response => {
+        this.$set("users", response.data.body)
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
-.table > thead > tr > th, .table > tbody > tr > th, 
-.table > tfoot > tr > th, .table > thead > tr > td, 
-.table > tbody > tr > td, .table > tfoot > tr > td {
-	padding: 8px 0;
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 8px 0;
 }
 
 th.rotate {
-	position: relative;
-	white-space: nowrap;
-	top: -53px;
-	left: -20px;
-	white-space: nowrap;
+  position: relative;
+  white-space: nowrap;
+  top: -53px;
+  left: -20px;
+  white-space: nowrap;
 }
 
 th.rotate > div {
-	transform: 
-		translate(25px, 51px)
-		rotate(315deg);
-	width: 30px;
+  transform: translate(25px, 51px) rotate(315deg);
+  width: 30px;
 }
 </style>

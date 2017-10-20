@@ -40,13 +40,13 @@
 
 <script>
 module.exports = {
-	props: ['invoice'],
+  props: ["invoice"],
 
-	components: {
-		statusIcon: require('app/components/statusIcon.vue'),
-		confirmedButton: require('app/components/confirmedButton.vue'),
-		printButton: require('./printButton.vue'),
-		chargeButton: require('./charge/button.vue')
-	}
+  components: {
+    statusIcon: require("~/components/statusIcon.vue"),
+    confirmedButton: require("~/components/confirmedButton.vue"),
+    printButton: require("./printButton.vue"),
+    chargeButton: require("./charge/button.vue")
+  }
 }
 </script>
