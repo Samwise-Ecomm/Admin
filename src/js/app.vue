@@ -40,7 +40,7 @@
 							<i class="fa fa-shopping-cart"></i>
 							<span class="label label-warning" v-if="cart.count">{{ cart.count }}</span>
 						</a>
-						<cart-summary v-ref:cart />
+						<cart-summary v-ref:cart></cart-summary>
 					</li><!-- /cart-menu -->
 
 					<!-- User Account Menu -->
@@ -269,60 +269,59 @@
 </template>
 
 <script>
-var store = require('~/vuex/store.js')
-var actions = require('~/vuex/actions.js')
+var store = require("~/vuex/store.js")
+var actions = require("~/vuex/actions.js")
 
 module.exports = {
-	computed: {
-		loggedIn () {
-			return Boolean(this.user.name)
-		}
-	},
+  computed: {
+    loggedIn() {
+      return Boolean(this.user.name)
+    }
+  },
 
-	created () {
-		if (localStorage.samwellToken) {
-			var Vue = require('vue')
-			Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.samwellToken
+  created() {
+    if (localStorage.samwellToken) {
+      var Vue = require("vue")
+      Vue.http.headers.common["Authorization"] =
+        "Bearer " + localStorage.samwellToken
 
-			this.getUser()
-		}
-	},
+      this.getUser()
+    }
+  },
 
-	watch: {
-		loggedIn () {
-			if (this.loggedIn) {
-				// activate newly revealed adminLTE controls
-				this.$nextTick(function() {
-					$.AdminLTE.pushMenu.activate("[data-toggle='offcanvas']")
-					$.AdminLTE.controlSidebar.activate()
-				})
-			}
-		}
-	},
+  watch: {
+    loggedIn() {
+      if (this.loggedIn) {
+        // activate newly revealed adminLTE controls
+        this.$nextTick(function() {
+          $.AdminLTE.pushMenu.activate("[data-toggle='offcanvas']")
+          $.AdminLTE.controlSidebar.activate()
+        })
+      }
+    }
+  },
 
-	components: {
-		loginForm: require('~/components/loginForm.vue'),
-		cartSummary: require('~/components/cart/summary.vue')
-	},
+  components: {
+    loginForm: require("~/components/loginForm.vue"),
+    cartSummary: require("~/components/cart/summary.vue")
+  },
 
-	methods: {
-		storeTodo () {}
+  methods: {
+    storeTodo() {}
+  },
 
-		
-	},
+  store,
 
-	store,
-
-	vuex: {
-		getters: {
-			notifications: state => state.notifications,
-			status: state => state.status,
-			user: state => state.user.info,
-			todos: state => state.user.todos,
-			cart: state => state.cart,
-			page: state => state.page
-		},
-		actions
-	}
+  vuex: {
+    getters: {
+      notifications: state => state.notifications,
+      status: state => state.status,
+      user: state => state.user.info,
+      todos: state => state.user.todos,
+      cart: state => state.cart,
+      page: state => state.page
+    },
+    actions
+  }
 }
 </script>
