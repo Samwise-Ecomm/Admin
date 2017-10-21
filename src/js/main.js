@@ -1,9 +1,11 @@
 // libraries
-var Vue         = require('vue');
-var Vuex        = require('vuex');
-var VueRouter   = require('vue-router');
+var Vue = require('vue');
+var Vuex = require('vuex');
+var VueRouter = require('vue-router');
 var VueResource = require('vue-resource');
-var App         = require('./app.vue');
+var App = require('./app.vue');
+
+require('../sass/index.scss');
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
