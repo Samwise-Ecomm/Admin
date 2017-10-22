@@ -15,20 +15,20 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['items'],
+export default {
+  props: ["items"],
 
-	methods: {
-		addItem () {
-			this.items.push({
-				id: null,
-				item_id: null,
-				name: '',
-				price: '0',
-				count: '0',
-				unit: 'Unit'
-			})
-		}
-	}
+  methods: {
+    addItem() {
+      this.items.push({
+        id: null,
+        item_id: null,
+        name: "",
+        price: "0",
+        count: "0",
+        unit: "Unit"
+      })
+    }
+  }
 }
 </script>

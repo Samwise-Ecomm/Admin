@@ -75,69 +75,74 @@
 </template>
 
 <script>
-module.exports = {
-	components: {
-		contactFields: require('./contactFields.vue'),
-		statusIcon: require('~/components/statusIcon.vue')
-	},
+export default {
+  components: {
+    contactFields: require("./contactFields.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	computed: {
-		validEmail() {
-			return (/\S+@\S+\.\S+/.test(this.email))
-		}
-	},
+  computed: {
+    validEmail() {
+      return /\S+@\S+\.\S+/.test(this.email)
+    }
+  },
 
-	methods: {
-		emailInput(e) {
-			this.setEmail(e.target.value)
-		},
+  methods: {
+    emailInput(e) {
+      this.setEmail(e.target.value)
+    },
 
-		seperateBillingInput(e) {
-			this.setSeperateBilling(e.target.checked)
-		},
+    seperateBillingInput(e) {
+      this.setSeperateBilling(e.target.checked)
+    },
 
-		shippingInput() {
-			this.setShippingAddress(this.$refs.shippingInput.info)
-		},
+    shippingInput() {
+      this.setShippingAddress(this.$refs.shippingInput.info)
+    },
 
-		billingInput() {
-			this.setShippingAddress(this.$refs.shippingInput.info)
-		},
+    billingInput() {
+      this.setShippingAddress(this.$refs.shippingInput.info)
+    },
 
-		fillFromEmail() {
-			this.$refs.search.working()
-			var query = {
-				_query: this.email.split('.').join(' '),
-				_limit: 1,
-				_sort: JSON.stringify({ id: 'desc' }) 
-			}
+    fillFromEmail() {
+      this.$refs.search.working()
+      var query = {
+        _query: this.email.split(".").join(" "),
+        _limit: 1,
+        _sort: JSON.stringify({ id: "desc" })
+      }
 
-			this.$http.get('invoices', query).then(function(response) {
-				if (response.data.body.length) {
-					this.$refs.search.check()
-					var most_recent = response.data.body[0]
-					this.setShippingAddress(most_recent.shipping_address)
-					this.setBillingAddress(most_recent.billing_address)
-					this.setPhone(most_recent.phone)
-					this.setSeperateBilling(most_recent.seperate_billing)
-				} else {
-					this.$refs.search.fail()
-					this.$root.notify('info', 'No Invoice Found', 'No invoices were found from that email.', 5000)
-				}
-			})
-		}
-	},
+      this.$http.get("invoices", query).then(function(response) {
+        if (response.data.body.length) {
+          this.$refs.search.check()
+          var most_recent = response.data.body[0]
+          this.setShippingAddress(most_recent.shipping_address)
+          this.setBillingAddress(most_recent.billing_address)
+          this.setPhone(most_recent.phone)
+          this.setSeperateBilling(most_recent.seperate_billing)
+        } else {
+          this.$refs.search.fail()
+          this.$root.notify(
+            "info",
+            "No Invoice Found",
+            "No invoices were found from that email.",
+            5000
+          )
+        }
+      })
+    }
+  },
 
-	vuex: {
-		getters: {
-			email: state => state.newInvoice.email,
-			phone: state => state.newInvoice.phone,
-			seperate_billing: state => state.newInvoice.seperate_billing,
-			shipping_address: state => state.newInvoice.shipping_address,
-			billing_address: state => state.newInvoice.billing_address
-		},
+  vuex: {
+    getters: {
+      email: state => state.newInvoice.email,
+      phone: state => state.newInvoice.phone,
+      seperate_billing: state => state.newInvoice.seperate_billing,
+      shipping_address: state => state.newInvoice.shipping_address,
+      billing_address: state => state.newInvoice.billing_address
+    },
 
-		actions: require('~/vuex/actions/newInvoice.js')
-	}
+    actions: require("~/vuex/actions/newInvoice.js")
+  }
 }
 </script>

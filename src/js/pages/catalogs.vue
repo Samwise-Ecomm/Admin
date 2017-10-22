@@ -88,113 +88,128 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return { 
-			loaded: false,
-			catalogs: [],
-			deletedCatalogs: [],
-		}
-	},
+export default {
+  data() {
+    return {
+      loaded: false,
+      catalogs: [],
+      deletedCatalogs: []
+    }
+  },
 
-	route: {
-		data () {
-			this.$refs.status.working()
-			this.getCatalogs()
-		}
-	},
+  route: {
+    data() {
+      this.$refs.status.working()
+      this.getCatalogs()
+    }
+  },
 
-	components: {
-		statusIcon: require('~/components/statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		getCatalogs () {
-			this.$http.get('catalogs').then(function(response) {
-				this.$set('deletedCatalogs', [])
-				this.$set('catalogs', response.data)
-				this.loaded = true
-				this.$refs.status.check()
-			})
-		},
+  methods: {
+    getCatalogs() {
+      this.$http.get("catalogs").then(function(response) {
+        this.$set("deletedCatalogs", [])
+        this.$set("catalogs", response.data)
+        this.loaded = true
+        this.$refs.status.check()
+      })
+    },
 
-		discardChanges () {
-			if (confirm("Are you sure? This will discard all changes you have made so far.")) {
-				window.location.reload()
-			}
-		},
+    discardChanges() {
+      if (
+        confirm(
+          "Are you sure? This will discard all changes you have made so far."
+        )
+      ) {
+        window.location.reload()
+      }
+    },
 
-		saveCatalogs () {
-			this.$refs.status.working()
+    saveCatalogs() {
+      this.$refs.status.working()
 
-			var request = {
-				catalogs: [],
-				deletedCatalogs: this.deletedCatalogs,
-			}
+      var request = {
+        catalogs: [],
+        deletedCatalogs: this.deletedCatalogs
+      }
 
-			for (var i = 0; i < this.catalogs.length; i++) {
-				var catalog = {
-					sorting: i,
-					id: this.catalogs[i].id,
-					name: this.catalogs[i].name,
-					label: this.catalogs[i].label,
-				}
+      for (var i = 0; i < this.catalogs.length; i++) {
+        var catalog = {
+          sorting: i,
+          id: this.catalogs[i].id,
+          name: this.catalogs[i].name,
+          label: this.catalogs[i].label
+        }
 
-				request.catalogs.push(catalog)
-			}
+        request.catalogs.push(catalog)
+      }
 
-			for (var i = 0; i < request.deletedCatalogs.length; i++) {
-				request.deletedCatalogs[i] = {
-					id: request.deletedCatalogs[i].id,
-				}
-			}
+      for (var i = 0; i < request.deletedCatalogs.length; i++) {
+        request.deletedCatalogs[i] = {
+          id: request.deletedCatalogs[i].id
+        }
+      }
 
-			this.$http.post('catalogs', request).then(function(response) {
-				// this.$dispatch('notification', {type: 'info', title: 'Success', message: 'The catalogs were saved.', timeout: 3})
-				this.getCatalogs()
-				
-				this.$refs.status.check()
-			}, function() { // Error Catcher
-				this.$refs.status.fail()
-			})
-		},
+      this.$http.post("catalogs", request).then(
+        function(response) {
+          // this.$dispatch('notification', {type: 'info', title: 'Success', message: 'The catalogs were saved.', timeout: 3})
+          this.getCatalogs()
 
-		shiftCatalog (index, change) {
-			var save = this.catalogs[index + change]
-			this.catalogs[index + change] = this.catalogs[index]
-			this.catalogs.$set(index, save)
-		},
+          this.$refs.status.check()
+        },
+        function() {
+          // Error Catcher
+          this.$refs.status.fail()
+        }
+      )
+    },
 
-		deleteCatalog (index) {
-			if (confirm("Are you sure? This will permanently delete the catalog.")) {
-				if (this.catalogs[index].id) {
-					this.deletedCatalogs.push(this.catalogs[index])
-				}
+    shiftCatalog(index, change) {
+      var save = this.catalogs[index + change]
+      this.catalogs[index + change] = this.catalogs[index]
+      this.catalogs.$set(index, save)
+    },
 
-				this.catalogs.splice(index, 1)
-			}
-		},
+    deleteCatalog(index) {
+      if (confirm("Are you sure? This will permanently delete the catalog.")) {
+        if (this.catalogs[index].id) {
+          this.deletedCatalogs.push(this.catalogs[index])
+        }
 
-		addCatalog () {
-			this.catalogs.push({ name: 'New Catalog', label: false, sorting: this.catalogs.length })
-		},
+        this.catalogs.splice(index, 1)
+      }
+    },
 
-		testName (index) {
-			var helper = require('../helper.js')
-			var thisCatalog = this.catalogs[index]
-			if (helper.testName(thisCatalog.name)) {
-				return true
-			}
+    addCatalog() {
+      this.catalogs.push({
+        name: "New Catalog",
+        label: false,
+        sorting: this.catalogs.length
+      })
+    },
 
-			for (var i = 0; i < this.catalogs.length; i++) {
-				var catalog = this.catalogs[i]
+    testName(index) {
+      var helper = require("../helper.js")
+      var thisCatalog = this.catalogs[index]
+      if (helper.testName(thisCatalog.name)) {
+        return true
+      }
 
-				if (catalog !== thisCatalog && helper.makeSlug(catalog.name) == helper.makeSlug(thisCatalog.name)) {
-					return true
-				}
-			}
-			return false;
-		}
-	}
+      for (var i = 0; i < this.catalogs.length; i++) {
+        var catalog = this.catalogs[i]
+
+        if (
+          catalog !== thisCatalog &&
+          helper.makeSlug(catalog.name) == helper.makeSlug(thisCatalog.name)
+        ) {
+          return true
+        }
+      }
+      return false
+    }
+  }
 }
 </script>

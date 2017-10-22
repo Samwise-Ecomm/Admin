@@ -54,7 +54,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   props: ["pages", "mode"],
 
   computed: {

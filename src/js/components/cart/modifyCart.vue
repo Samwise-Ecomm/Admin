@@ -22,27 +22,27 @@
 </template>
 
 <script>
-module.exports = {
-	computed: {
-		subTotal () {
-			var subTotal = 0
-			for (var offerId in this.$refs.offers) {
-				subTotal += this.$refs.offers[offerId].subTotal
-			}
-			return subTotal
-		}
-	},
+export default {
+  computed: {
+    subTotal() {
+      var subTotal = 0
+      for (var offerId in this.$refs.offers) {
+        subTotal += this.$refs.offers[offerId].subTotal
+      }
+      return subTotal
+    }
+  },
 
-	components: {
-		offer: require('./offer.vue')
-	},
+  components: {
+    offer: require("./offer.vue")
+  },
 
-	vuex: {
-		getters: {
-			count: state => state.cart.count,
-			offers: state => state.cart.offers
-		},
-		actions: require('~/vuex/actions/cart.js')
-	}
+  vuex: {
+    getters: {
+      count: state => state.cart.count,
+      offers: state => state.cart.offers
+    },
+    actions: require("~/vuex/actions/cart.js")
+  }
 }
 </script>

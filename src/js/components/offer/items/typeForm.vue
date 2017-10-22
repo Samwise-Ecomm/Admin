@@ -43,27 +43,27 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			typeSchema: {},
-			loaded: false
-		}
-	},
+export default {
+  data() {
+    return {
+      typeSchema: {},
+      loaded: false
+    }
+  },
 
-	props: ['item', 'offerType'],
+  props: ["item", "offerType"],
 
-	created () {
-		this.get()
-	},
+  created() {
+    this.get()
+  },
 
-	methods: {
-		get () {
-			this.$http.get('setting/type_schema/item').then(response => {
-				this.$set('typeSchema', response.data)
-				this.loaded = true
-			})
-		}
-	}
+  methods: {
+    get() {
+      this.$http.get("setting/type_schema/item").then(response => {
+        this.$set("typeSchema", response.data)
+        this.loaded = true
+      })
+    }
+  }
 }
 </script>

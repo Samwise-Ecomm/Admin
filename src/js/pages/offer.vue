@@ -53,81 +53,84 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			loaded: false,
-			id: 0,
-			offer: {}
-		}
-	},
+export default {
+  data() {
+    return {
+      loaded: false,
+      id: 0,
+      offer: {}
+    }
+  },
 
-	route: {
-		data () {
-			this.loaded = false
-			this.$set('id', this.$route.params.id)
-			this.get()
-		}
-	},
+  route: {
+    data() {
+      this.loaded = false
+      this.$set("id", this.$route.params.id)
+      this.get()
+    }
+  },
 
-	components: {
-		items: require('~/components/offer/items/box.vue'),
-		offerInfo: require('~/components/offer/offerInfo.vue'),
-		tags: require('~/components/tags.vue'),
-		pictureUpload: require('~/components/offer/pictureUpload.vue'),
-		pictures: require('~/components/offer/pictures.vue'),
-		typeInfo: require('~/components/offer/typeInfo.vue'),
-		confirmedButton: require('~/components/confirmedButton.vue'),
-		statusIcon: require('~/components/statusIcon.vue')
-	},
+  components: {
+    items: require("~/components/offer/items/box.vue"),
+    offerInfo: require("~/components/offer/offerInfo.vue"),
+    tags: require("~/components/tags.vue"),
+    pictureUpload: require("~/components/offer/pictureUpload.vue"),
+    pictures: require("~/components/offer/pictures.vue"),
+    typeInfo: require("~/components/offer/typeInfo.vue"),
+    confirmedButton: require("~/components/confirmedButton.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	events: {
-		NEW_PICTURE (fileName) {
-			this.offer.pictures.push({
-				id: null,
-				source: {
-					lg: `tmp/${fileName}`
-				},
-			})
-		}
-	},
+  events: {
+    NEW_PICTURE(fileName) {
+      this.offer.pictures.push({
+        id: null,
+        source: {
+          lg: `tmp/${fileName}`
+        }
+      })
+    }
+  },
 
-	methods: {
-		get () {
-			this.$http.get(`offer/${this.id}`).then(response => {
-				response.data['deleted_pictures'] = []
-				response.data['deleted_items'] = []
-				this.$set('offer', response.data)
-				this.loaded = true
-				if (this.$refs.discard) {
-					this.$refs.discard.check()
-				}
-			})
-		},
+  methods: {
+    get() {
+      this.$http.get(`offer/${this.id}`).then(response => {
+        response.data["deleted_pictures"] = []
+        response.data["deleted_items"] = []
+        this.$set("offer", response.data)
+        this.loaded = true
+        if (this.$refs.discard) {
+          this.$refs.discard.check()
+        }
+      })
+    },
 
-		store () {
-			this.$refs.store.working()
+    store() {
+      this.$refs.store.working()
 
-			console.log(this.offer);
+      console.log(this.offer)
 
-			this.$http.patch(`offer/${this.offer.id}`, this.offer).then(response => {
-				response.data['deleted_pictures'] = []
-				this.$set('offer', response.data)
-				this.$refs.store.check()
-			}, () => {
-				this.$refs.store.fail()
-			})
-		},
+      this.$http.patch(`offer/${this.offer.id}`, this.offer).then(
+        response => {
+          response.data["deleted_pictures"] = []
+          this.$set("offer", response.data)
+          this.$refs.store.check()
+        },
+        () => {
+          this.$refs.store.fail()
+        }
+      )
+    },
 
-		discard () {
-			this.get()
-		},
+    discard() {
+      this.get()
+    },
 
-		deleteOffer () {
-			this.$http.delete(`offer/${this.offer.id}`).then(response => {
-				this.$router.go({ path: '/offers' })
-			})
-		}
-	}
+    deleteOffer() {
+      this.$http.delete(`offer/${this.offer.id}`).then(response => {
+        this.$router.go({ path: "/offers" })
+      })
+    }
+  }
 }
 </script>

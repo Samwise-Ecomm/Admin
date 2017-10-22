@@ -26,92 +26,103 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			email: "",
-			password: "",
-			captchaRequired: false,
-			recaptchaKey: $('#key-recaptcha').attr('content')
-		}
-	},
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      captchaRequired: false,
+      recaptchaKey: $("#key-recaptcha").attr("content")
+    }
+  },
 
-	components: {
-		statusIcon: require('./statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("./statusIcon.vue")
+  },
 
-	computed: {
-		validEmail () {
-			var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-			return regex.test(this.email)
-		},
-		validPassword () {
-			return this.password.length >= 8
-		},
-		validLogin () {
-			return this.validEmail && this.validPassword
-		}
-	},
+  computed: {
+    validEmail() {
+      var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+      return regex.test(this.email)
+    },
+    validPassword() {
+      return this.password.length >= 8
+    },
+    validLogin() {
+      return this.validEmail && this.validPassword
+    }
+  },
 
-	methods: {
-		postLogin () {
-			if (this.captchaRequired) {
-				var captcha = grecaptcha.getResponse()
+  methods: {
+    postLogin() {
+      if (this.captchaRequired) {
+        var captcha = grecaptcha.getResponse()
 
-				if (!captcha) {
-					this.notify('warning', 'Captcha Required', 'Please indicate that you are not a robot.', 3000)
-					return
-				}
-			} else {
-				captcha = null
-			}
+        if (!captcha) {
+          this.notify(
+            "warning",
+            "Captcha Required",
+            "Please indicate that you are not a robot.",
+            3000
+          )
+          return
+        }
+      } else {
+        captcha = null
+      }
 
-			this.$refs.loginStatus.working()
+      this.$refs.loginStatus.working()
 
-			var request = {
-				email: this.email,
-				password: this.password,
-				captcha: captcha
-			}
+      var request = {
+        email: this.email,
+        password: this.password,
+        captcha: captcha
+      }
 
-			this.$http.post('/public-api/auth', request).then(function(response) {
-				// reset authentication credentials
-				this.password = ""
-				this.email = ""
-				this.captchaRequired = false
+      this.$http.post("public/auth", request).then(
+        function(response) {
+          // reset authentication credentials
+          this.password = ""
+          this.email = ""
+          this.captchaRequired = false
 
-				// append the auth token to all http further requests
-				var Vue = require('vue')
-				Vue.http.headers.common['Authorization'] = 'Bearer ' + response.data.token
-				localStorage.samwellToken = response.data.token
+          // append the auth token to all http further requests
+          var Vue = require("vue")
+          Vue.http.headers.common["Authorization"] =
+            "Bearer " + response.data.token
+          localStorage.samwellToken = response.data.token
 
-				// set auth token and grab the logged in user data
-				this.getUser()
+          // set auth token and grab the logged in user data
+          this.getUser()
 
-				this.$refs.loginStatus.check()
-			}, function(response) {
-				this.$refs.loginStatus.fail()
-			})
-		},
+          this.$refs.loginStatus.check()
+        },
+        function(response) {
+          this.$refs.loginStatus.fail()
+        }
+      )
+    },
 
-		resetCaptcha () {
-			if (this.captchaRequired) {
-				grecaptcha.reset()
-			} else {
-				this.captchaRequired = true
-				this.$nextTick(function() {
-					grecaptcha.render($('.g-recaptcha')[0], { sitekey : this.recaptchaKey })
-				})
-			}
-		},
-	},
+    resetCaptcha() {
+      if (this.captchaRequired) {
+        grecaptcha.reset()
+      } else {
+        this.captchaRequired = true
+        this.$nextTick(function() {
+          grecaptcha.render($(".g-recaptcha")[0], {
+            sitekey: this.recaptchaKey
+          })
+        })
+      }
+    }
+  },
 
-	vuex: {
-		getters: {
-			user: state => state.user
-		},
+  vuex: {
+    getters: {
+      user: state => state.user
+    },
 
-		actions: require('~/vuex/actions/user.js')
-	}
+    actions: require("~/vuex/actions/user.js")
+  }
 }
 </script>

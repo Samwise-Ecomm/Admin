@@ -53,77 +53,80 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			offer: {
-				name: '',
-				type: 'auto',
-				public: 1,
-				description: '',
-				tags: '',
-				items: [
-					{
-						name: '',
-						type: 'auto',
-						public: 1,
-						x: '',
-						y: '',
-						z: '',
-						weight: '',
-						shipping_cost: '',
-						location: '',
-						unit: 'Unit',
-						infinite: false,
-						stock: 0,
-						store_reserve: 0,
-						sold: 0,
-						price: 0
-					}
-				],
-				pictures: [],
-				deleted_pictures: [],
-				deleted_items: []
-			}
-		}
-	},
+export default {
+  data() {
+    return {
+      offer: {
+        name: "",
+        type: "auto",
+        public: 1,
+        description: "",
+        tags: "",
+        items: [
+          {
+            name: "",
+            type: "auto",
+            public: 1,
+            x: "",
+            y: "",
+            z: "",
+            weight: "",
+            shipping_cost: "",
+            location: "",
+            unit: "Unit",
+            infinite: false,
+            stock: 0,
+            store_reserve: 0,
+            sold: 0,
+            price: 0
+          }
+        ],
+        pictures: [],
+        deleted_pictures: [],
+        deleted_items: []
+      }
+    }
+  },
 
-	components: {
-		items: require('~/components/offer/items/box.vue'),
-		offerInfo: require('~/components/offer/offerInfo.vue'),
-		tags: require('~/components/tags.vue'),
-		pictureUpload: require('~/components/offer/pictureUpload.vue'),
-		pictures: require('~/components/offer/pictures.vue'),
-		typeInfo: require('~/components/offer/typeInfo.vue'),
-		confirmedButton: require('~/components/confirmedButton.vue'),
-		statusIcon: require('~/components/statusIcon.vue')
-	},
+  components: {
+    items: require("~/components/offer/items/box.vue"),
+    offerInfo: require("~/components/offer/offerInfo.vue"),
+    tags: require("~/components/tags.vue"),
+    pictureUpload: require("~/components/offer/pictureUpload.vue"),
+    pictures: require("~/components/offer/pictures.vue"),
+    typeInfo: require("~/components/offer/typeInfo.vue"),
+    confirmedButton: require("~/components/confirmedButton.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	events: {
-		NEW_PICTURE (fileName) {
-			this.offer.pictures.push({
-				id: null,
-				source: {
-					lg: `tmp/${fileName}`
-				},
-			})
-		}
-	},
+  events: {
+    NEW_PICTURE(fileName) {
+      this.offer.pictures.push({
+        id: null,
+        source: {
+          lg: `tmp/${fileName}`
+        }
+      })
+    }
+  },
 
-	methods: {
-		store () {
-			this.$refs.store.working()
+  methods: {
+    store() {
+      this.$refs.store.working()
 
-			this.$http.post('offer', this.offer).then(response => {
-				this.$router.go({ path: `/offer/${response.data.id}` })
-			}, () => {
-				this.$refs.store.fail()
-			})
-		},
+      this.$http.post("offer", this.offer).then(
+        response => {
+          this.$router.go({ path: `/offer/${response.data.id}` })
+        },
+        () => {
+          this.$refs.store.fail()
+        }
+      )
+    },
 
-		delete () {
-			this.$router.go({ path: '/offers' })
-		}
-	}
+    delete() {
+      this.$router.go({ path: "/offers" })
+    }
+  }
 }
 </script>

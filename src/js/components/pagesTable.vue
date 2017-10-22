@@ -16,7 +16,7 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['section']
+export default {
+  props: ["section"]
 }
 </script>

@@ -17,12 +17,12 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['invoice'],
+export default {
+  props: ["invoice"],
 
-	components: {
-		statusIcon: require('~/components/statusIcon.vue'),
-		itemsTable: require('./itemsTable.vue')
-	}
+  components: {
+    statusIcon: require("~/components/statusIcon.vue"),
+    itemsTable: require("./itemsTable.vue")
+  }
 }
 </script>

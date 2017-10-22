@@ -13,7 +13,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   components: {
     modifyCart: require("~/components/cart/modifyCart.vue"),
     customerInfo: require("~/components/invoice/customerInfoForm.vue"),

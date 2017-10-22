@@ -41,19 +41,19 @@
 
 <script>
 // offers/row.vue
-module.exports = {
-	props: ['offer'],
+export default {
+  props: ["offer"],
 
-	components: {
-		addToCart: require('./addToCart.vue')
-	},
+  components: {
+    addToCart: require("./addToCart.vue")
+  },
 
-	vuex: {
-		getters: {
-			expandedIndex: state => state.offers.expandedIndex
-		},
+  vuex: {
+    getters: {
+      expandedIndex: state => state.offers.expandedIndex
+    },
 
-		actions: require(`~/vuex/actions/dataTables.js`)
-	}
+    actions: require(`~/vuex/actions/dataTables.js`)
+  }
 }
 </script>

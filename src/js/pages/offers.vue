@@ -13,7 +13,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   components: {
     offersBox: require("~/components/offers/box.vue")
   }

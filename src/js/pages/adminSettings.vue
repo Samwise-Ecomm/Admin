@@ -11,7 +11,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   components: {
     registerUser: require("~/components/adminSettings/registerUser/box.vue"),
     userPrivileges: require("~/components/adminSettings/userPrivileges/box.vue")

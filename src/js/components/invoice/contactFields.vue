@@ -114,16 +114,16 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['info', 'label', 'disabled'],
+export default {
+  props: ["info", "label", "disabled"],
 
-	watch: {
-		info: {
-			handler () {
-				// this.dispatch('input')
-			},
-			deep: true
-		}
-	}
+  watch: {
+    info: {
+      handler() {
+        // this.dispatch('input')
+      },
+      deep: true
+    }
+  }
 }
 </script>

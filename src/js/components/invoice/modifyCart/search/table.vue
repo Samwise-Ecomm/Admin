@@ -15,11 +15,11 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['results', 'cart'],
+export default {
+  props: ["results", "cart"],
 
-	components: {
-		row: require('./row.vue')
-	}
+  components: {
+    row: require("./row.vue")
+  }
 }
 </script>

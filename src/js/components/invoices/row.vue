@@ -28,19 +28,19 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['invoice'],
+export default {
+  props: ["invoice"],
 
-	components: {
-		statusToggle: require('./statusToggle.vue')
-	},
+  components: {
+    statusToggle: require("./statusToggle.vue")
+  },
 
-	vuex: {
-		getters: {
-			expandedIndex: state => state.invoices.expandedIndex
-		},
+  vuex: {
+    getters: {
+      expandedIndex: state => state.invoices.expandedIndex
+    },
 
-		actions: require(`~/vuex/actions/dataTables.js`)
-	}
+    actions: require(`~/vuex/actions/dataTables.js`)
+  }
 }
 </script>

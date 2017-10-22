@@ -19,41 +19,41 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			expandedIndex: 0
-		}
-	},
+export default {
+  data() {
+    return {
+      expandedIndex: 0
+    }
+  },
 
-	props: ['items', 'offer'],
+  props: ["items", "offer"],
 
-	components: {
-		itemsTable: require('./table.vue'),
-		item: require('./item.vue')
-	},
+  components: {
+    itemsTable: require("./table.vue"),
+    item: require("./item.vue")
+  },
 
-	methods: {
-		addItem () {
-			this.offer.items.push({
-				name: '',
-				type: 'auto',
-				public: 1,
-				x: '',
-				y: '',
-				z: '',
-				weight: '',
-				shipping_cost: '',
-				location: '',
-				unit: 'Unit',
-				infinite: false,
-				stock: 0,
-				store_reserve: 0,
-				sold: 0,
-				price: 0
-			})
-			this.expandedIndex = this.offer.items.length - 1
-		}
-	}
+  methods: {
+    addItem() {
+      this.offer.items.push({
+        name: "",
+        type: "auto",
+        public: 1,
+        x: "",
+        y: "",
+        z: "",
+        weight: "",
+        shipping_cost: "",
+        location: "",
+        unit: "Unit",
+        infinite: false,
+        stock: 0,
+        store_reserve: 0,
+        sold: 0,
+        price: 0
+      })
+      this.expandedIndex = this.offer.items.length - 1
+    }
+  }
 }
 </script>

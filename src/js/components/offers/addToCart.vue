@@ -7,7 +7,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   computed: {
     count() {
       if (this.cart.offers[this.offerId]) {

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['item']
+export default {
+  props: ["item"]
 }
 </script>

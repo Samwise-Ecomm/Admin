@@ -17,19 +17,19 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['invoice'],
+export default {
+  props: ["invoice"],
 
-	components: {
-		addressBlock: require('./addressBlock.vue'),
-		customerInfo: require('./customerInfo.vue'),
-		statusIcon: require('~/components/statusIcon.vue')
-	},
+  components: {
+    addressBlock: require("./addressBlock.vue"),
+    customerInfo: require("./customerInfo.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		notesKeyup () {
-			this.$refs.noteStatus.working()
-		}
-	}
+  methods: {
+    notesKeyup() {
+      this.$refs.noteStatus.working()
+    }
+  }
 }
 </script>

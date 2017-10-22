@@ -13,11 +13,11 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['result', 'cart'],
+export default {
+  props: ["result", "cart"],
 
-	components: {
-		addToCart: require('./addToCart.vue')
-	}
+  components: {
+    addToCart: require("./addToCart.vue")
+  }
 }
 </script>

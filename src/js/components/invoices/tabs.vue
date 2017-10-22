@@ -32,7 +32,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   methods: {
     statusInput(status) {
       this.changePage(0)

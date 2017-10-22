@@ -24,11 +24,11 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['pictures', 'offerId', 'deleted'],
+export default {
+  props: ["pictures", "offerId", "deleted"],
 
-	components: {
-		picture: require('./picture.vue')
-	}
+  components: {
+    picture: require("./picture.vue")
+  }
 }
 </script>

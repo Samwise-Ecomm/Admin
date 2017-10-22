@@ -23,7 +23,7 @@
 
 <script>
 // offers/sorters.vue
-module.exports = {
+export default {
   components: {
     sortIcon: require("~/components/dataTable/sortIcon.vue")
   },

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   components: {
     sortIcon: require("~/components/dataTable/sortIcon.vue")
   },

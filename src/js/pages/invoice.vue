@@ -49,53 +49,53 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			loaded: false,
-			id: 0,
-			invoice: {}
-		}
-	},
+export default {
+  data() {
+    return {
+      loaded: false,
+      id: 0,
+      invoice: {}
+    }
+  },
 
-	route: {
-		data () {
-			this.loaded = false
-			this.$set('id', this.$route.params.id)
-			this.getInvoice()
-		}
-	},
+  route: {
+    data() {
+      this.loaded = false
+      this.$set("id", this.$route.params.id)
+      this.getInvoice()
+    }
+  },
 
-	events: {
-		PAID (amount) {
-			this.invoice.cart.paid += amount
-			this.invoice.cart.due -= amount
-		}
-	},
+  events: {
+    PAID(amount) {
+      this.invoice.cart.paid += amount
+      this.invoice.cart.due -= amount
+    }
+  },
 
-	components: {
-		toolbarBox: require('~/components/invoice/toolbarBox.vue'),
-		customerInfoBox: require('~/components/invoice/customerInfoBox.vue'),
-		cartBox: require('~/components/invoice/cartBox.vue'),
-		modifyCartBox: require('~/components/invoice/modifyCartBox.vue'),
-		modifyCustomerInfoBox: require('~/components/invoice/modifyCustomerInfoBox.vue'),
-		statusButton: require('~/components/invoice/statusButton.vue')
-	},
+  components: {
+    toolbarBox: require("~/components/invoice/toolbarBox.vue"),
+    customerInfoBox: require("~/components/invoice/customerInfoBox.vue"),
+    cartBox: require("~/components/invoice/cartBox.vue"),
+    modifyCartBox: require("~/components/invoice/modifyCartBox.vue"),
+    modifyCustomerInfoBox: require("~/components/invoice/modifyCustomerInfoBox.vue"),
+    statusButton: require("~/components/invoice/statusButton.vue")
+  },
 
-	methods: {
-		getInvoice() {
-			this.$http.get(`invoice/${this.id}`).then(response => {
-				this.$set('invoice', response.data)
-				this.loaded = true
-			})
-		}
-	}
+  methods: {
+    getInvoice() {
+      this.$http.get(`invoice/${this.id}`).then(response => {
+        this.$set("invoice", response.data)
+        this.loaded = true
+      })
+    }
+  }
 }
 </script>
 
 <style>
 #statusTray {
-	font-size: larger;
-	margin-bottom: 10px;
+  font-size: larger;
+  margin-bottom: 10px;
 }
 </style>

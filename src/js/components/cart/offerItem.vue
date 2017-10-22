@@ -12,43 +12,43 @@
 </template>
 
 <script>
-module.exports = {
-	computed: {
-		count () {
-			if (this.cart.offers[this.offerId]) {
-				if (this.cart.offers[this.offerId][this.item.id]) {
-					return this.cart.offers[this.offerId][this.item.id]
-				} else {
-					return 0
-				}
-			} else {
-				return 0
-			}
-		},
+export default {
+  computed: {
+    count() {
+      if (this.cart.offers[this.offerId]) {
+        if (this.cart.offers[this.offerId][this.item.id]) {
+          return this.cart.offers[this.offerId][this.item.id]
+        } else {
+          return 0
+        }
+      } else {
+        return 0
+      }
+    },
 
-		subTotal () {
-			return this.item.price * this.count
-		}
-	},
+    subTotal() {
+      return this.item.price * this.count
+    }
+  },
 
-	props: ['item', 'offerId'],
+  props: ["item", "offerId"],
 
-	methods: {
-		incrament() {
-			this.addToCart(this.offerId, this.item.id)
-		},
+  methods: {
+    incrament() {
+      this.addToCart(this.offerId, this.item.id)
+    },
 
-		decrament() {
-			this.removeFromCart(this.offerId, this.item.id)
-		}
-	},
+    decrament() {
+      this.removeFromCart(this.offerId, this.item.id)
+    }
+  },
 
-	vuex: {
-		getters: {
-			cart: state => state.cart
-		},
+  vuex: {
+    getters: {
+      cart: state => state.cart
+    },
 
-		actions: require('~/vuex/actions/cart.js')
-	}
+    actions: require("~/vuex/actions/cart.js")
+  }
 }
 </script>

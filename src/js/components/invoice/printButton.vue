@@ -114,10 +114,11 @@
 </template>
 
 <style scoped>
-.print-area{
-	font-family: 'Roboto', sans-serif;
+.print-area {
+  font-family: "Roboto", sans-serif;
 }
-.print-table, .print-table th{
+.print-table,
+.print-table th {
   border: 1px solid black;
   border-collapse: collapse;
   padding-left: 5px;
@@ -125,48 +126,52 @@
   font-size: 14px;
 }
 .print-table td {
-	height: 21px;
-	border-left: 1px solid black;
-	border-right: 1px solid black;
+  height: 21px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
   border-collapse: collapse;
   text-align: right;
   padding-left: 5px;
   padding-right: 5px;
 }
 .print-table td:nth-child(1) {
-	text-align: left;
+  text-align: left;
 }
 .print-area hr {
-	border: 1px solid black;
-	border-top: 0px;
-	margin-top: 1em;
-	margin-bottom: 1em;
+  border: 1px solid black;
+  border-top: 0px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 #container {
-	width:8.5in;
+  width: 8.5in;
 }
 #addresses {
-	clear: both;
-	width: 100%;
+  clear: both;
+  width: 100%;
 }
 
 @media screen {
-  .print-area { display: none; }
+  .print-area {
+    display: none;
+  }
 }
 
 @media print {
-  .print-area { display: block !important; }
+  .print-area {
+    display: block !important;
+  }
 }
 </style>
 
 <script>
-module.exports = {
-	props: ['invoice'],
+export default {
+  props: ["invoice"],
 
-	methods: {
-		print () {
-			$.print(".print-area")
-		}
-	}
+  methods: {
+    print() {
+      $.print(".print-area")
+    }
+  }
 }
 </script>

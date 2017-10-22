@@ -28,62 +28,65 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			invoicesCollection: {
-				pages: 1
-			},
-			loaded: false
-		}
-	},
+export default {
+  data() {
+    return {
+      invoicesCollection: {
+        pages: 1
+      },
+      loaded: false
+    }
+  },
 
-	ready () {
-		this.getInvoices()
-	},
+  ready() {
+    this.getInvoices()
+  },
 
-	components: {
-		invoicesTable: require('./table.vue'),
-		invoiceTabs: require('./tabs.vue'),
-		cancelledInvoicesTable: require('./cancelled/table.vue'),
-		statusIcon: require('~/components/statusIcon.vue'),
-		pagination: require('~/components/dataTable/pagination.vue'),
-		limitSelector: require('~/components/dataTable/limitSelector.vue'),
-		queryInput: require('~/components/dataTable/queryInput.vue')
-	},
+  components: {
+    invoicesTable: require("./table.vue"),
+    invoiceTabs: require("./tabs.vue"),
+    cancelledInvoicesTable: require("./cancelled/table.vue"),
+    statusIcon: require("~/components/statusIcon.vue"),
+    pagination: require("~/components/dataTable/pagination.vue"),
+    limitSelector: require("~/components/dataTable/limitSelector.vue"),
+    queryInput: require("~/components/dataTable/queryInput.vue")
+  },
 
-	events: {
-		GET () {
-			this.getInvoices()
-		},
+  events: {
+    GET() {
+      this.getInvoices()
+    },
 
-		REFRESH () {
-			this.expandIndex(-1)
-			this.getInvoices()
-		}
-	},
+    REFRESH() {
+      this.expandIndex(-1)
+      this.getInvoices()
+    }
+  },
 
-	methods: {
-		getInvoices () {
-			this.$refs.status.working()
+  methods: {
+    getInvoices() {
+      this.$refs.status.working()
 
-			var route = (this.status == 'cancelled') ? 'cancelled-invoices' : 'invoices'
-			this.$http.get(route, this.request).then(response => {
-				this.$refs.status.check()
-				this.invoicesCollection = response.data
-			}, () => {
-				this.$refs.status.fail()
-			})
-		}
-	},
+      var route = this.status == "cancelled" ? "cancelled-invoices" : "invoices"
+      this.$http.get(route, this.request).then(
+        response => {
+          this.$refs.status.check()
+          this.invoicesCollection = response.data
+        },
+        () => {
+          this.$refs.status.fail()
+        }
+      )
+    }
+  },
 
-	vuex: {
-		getters: {
-			request: state => state.invoices.request,
-			status: state => state.invoices.status
-		},
+  vuex: {
+    getters: {
+      request: state => state.invoices.request,
+      status: state => state.invoices.status
+    },
 
-		actions: require('~/vuex/actions/dataTables.js')
-	}
+    actions: require("~/vuex/actions/dataTables.js")
+  }
 }
 </script>

@@ -272,7 +272,7 @@
 var store = require("~/vuex/store.js")
 var actions = require("~/vuex/actions.js")
 
-module.exports = {
+export default {
   computed: {
     loggedIn() {
       return Boolean(this.user.name)

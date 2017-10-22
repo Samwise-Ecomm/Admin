@@ -111,209 +111,225 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			loaded: false,
-			pages: [],
-			deletedPages: [],
-		}
-	},
+export default {
+  data() {
+    return {
+      loaded: false,
+      pages: [],
+      deletedPages: []
+    }
+  },
 
-	route: {
-		data () {
-			this.getPages()
-		}
-	},
+  route: {
+    data() {
+      this.getPages()
+    }
+  },
 
-	components: {
-		statusIcon: require('../components/statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("../components/statusIcon.vue")
+  },
 
-	computed: {
-		linearPages () {
-			return {
-				header: this.parsePages('header'),
-				footer: this.parsePages('footer'),
-				hidden: this.parsePages('hidden'),
-			}
-		},
+  computed: {
+    linearPages() {
+      return {
+        header: this.parsePages("header"),
+        footer: this.parsePages("footer"),
+        hidden: this.parsePages("hidden")
+      }
+    },
 
-		pagesRequest () {
-			var request = []
+    pagesRequest() {
+      var request = []
 
-			var loc = ['header', 'footer', 'hidden']
-			for (var i = 0; i < loc.length; i++) {
-				for (var j = 0; j < this.linearPages[loc[i]].length; j++) {
-					var requestPage = this.linearPages[loc[i]][j]
-					var page = {
-						id: requestPage.id,
-						name: requestPage.name,
-						parent_id: requestPage.parent_id,
-						location: requestPage.location,
-						depth: requestPage.depth,
-						sorting: requestPage.sorting,
-					}
-					request.push(page)
-				}
-			}
+      var loc = ["header", "footer", "hidden"]
+      for (var i = 0; i < loc.length; i++) {
+        for (var j = 0; j < this.linearPages[loc[i]].length; j++) {
+          var requestPage = this.linearPages[loc[i]][j]
+          var page = {
+            id: requestPage.id,
+            name: requestPage.name,
+            parent_id: requestPage.parent_id,
+            location: requestPage.location,
+            depth: requestPage.depth,
+            sorting: requestPage.sorting
+          }
+          request.push(page)
+        }
+      }
 
-			return request
-		}
-	},
+      return request
+    }
+  },
 
-	methods: {
-		getPages () {
-			// var page = require('../store/page.js')
-		 //  page.state.title = 'Pages'
-		 //  page.state.description = ''
+  methods: {
+    getPages() {
+      // var page = require('../store/page.js')
+      //  page.state.title = 'Pages'
+      //  page.state.description = ''
 
-		  this.$http.get('pages').then(function (response) {
-				this.$set('pages', response.data)
-				this.$set('deletedPages', [])
-				this.loaded = true
-			})
-		},
+      this.$http.get("pages").then(function(response) {
+        this.$set("pages", response.data)
+        this.$set("deletedPages", [])
+        this.loaded = true
+      })
+    },
 
-		savePages () {
-			this.$refs.status.working()
+    savePages() {
+      this.$refs.status.working()
 
-			// generate request
-			var request = { pages: this.pagesRequest, delete: this.deletedPages }
+      // generate request
+      var request = { pages: this.pagesRequest, delete: this.deletedPages }
 
-			this.$http.post('pages', request).then(function (response) {
-				this.$refs.status.check()
-				this.getPages()
-			}, function() {
-				this.$refs.status.fail()
-			})
-		},
+      this.$http.post("pages", request).then(
+        function(response) {
+          this.$refs.status.check()
+          this.getPages()
+        },
+        function() {
+          this.$refs.status.fail()
+        }
+      )
+    },
 
-		discardChanges () {
-			if (confirm("Are you sure? This will discard all changes you have made so far.")) {
-				this.getPages()
-			}
-		},
+    discardChanges() {
+      if (
+        confirm(
+          "Are you sure? This will discard all changes you have made so far."
+        )
+      ) {
+        this.getPages()
+      }
+    },
 
-		parsePages (location, input = null, depth = 0, parent = null) {
-			if (input == null) {
-				input = this.pages[location]
-			}
-			var returnArray = []
+    parsePages(location, input = null, depth = 0, parent = null) {
+      if (input == null) {
+        input = this.pages[location]
+      }
+      var returnArray = []
 
-			for (var i = 0; i < input.length; i++) {
-				if (parent === null) {
-					input[i].parent_id = null
-				} else {
-					input[i].parent_id = parent.id
-				}
-				input[i].location = location
-				input[i].depth = depth
-				input[i].sorting = i
-				input[i].family = input
-				input[i].parent = parent
+      for (var i = 0; i < input.length; i++) {
+        if (parent === null) {
+          input[i].parent_id = null
+        } else {
+          input[i].parent_id = parent.id
+        }
+        input[i].location = location
+        input[i].depth = depth
+        input[i].sorting = i
+        input[i].family = input
+        input[i].parent = parent
 
-				returnArray.push(input[i])
-				returnArray = returnArray.concat(this.parsePages(location, input[i]['children'], depth + 1, input[i]))
-			}
+        returnArray.push(input[i])
+        returnArray = returnArray.concat(
+          this.parsePages(location, input[i]["children"], depth + 1, input[i])
+        )
+      }
 
-			return returnArray
-		},
+      return returnArray
+    },
 
-		adopt (child) {
-			var index = child['family'].indexOf(child)
-			var eldest = child['family'][index - 1]
-			child['family'].splice(index, 1)
-			eldest['children'].push(child)
-			this.update(eldest)
-		},
+    adopt(child) {
+      var index = child["family"].indexOf(child)
+      var eldest = child["family"][index - 1]
+      child["family"].splice(index, 1)
+      eldest["children"].push(child)
+      this.update(eldest)
+    },
 
-		disown (child) {
-			var index = child['family'].indexOf(child)
-			var parent = child['parent']
-			var parentIndex = parent['family'].indexOf(parent)
-			child['family'].splice(index, 1)
-			parent['family'].splice(parentIndex + 1, 0, child)
-			this.update(parent)
-		},
+    disown(child) {
+      var index = child["family"].indexOf(child)
+      var parent = child["parent"]
+      var parentIndex = parent["family"].indexOf(parent)
+      child["family"].splice(index, 1)
+      parent["family"].splice(parentIndex + 1, 0, child)
+      this.update(parent)
+    },
 
-		move (child, distance) {
-			var family = child['family']
-			var index = family.indexOf(child)
-			family.splice(index, 1)
-			family.splice(index + distance, 0, child)
-		},
+    move(child, distance) {
+      var family = child["family"]
+      var index = family.indexOf(child)
+      family.splice(index, 1)
+      family.splice(index + distance, 0, child)
+    },
 
-		update (page) {
-			var Vue = require('vue')
-			var family = page['family']
-			var index = family.indexOf(page)
-			family.splice(index, 1)
-			Vue.nextTick(function() {
-				family.splice(index, 0, page)
-			})
-		},
+    update(page) {
+      var Vue = require("vue")
+      var family = page["family"]
+      var index = family.indexOf(page)
+      family.splice(index, 1)
+      Vue.nextTick(function() {
+        family.splice(index, 0, page)
+      })
+    },
 
-		changeSection (page, newSection) {
-			var index = page['family'].indexOf(page)
-			var eldest = page['family'][index - 1]
-			page['family'].splice(index, 1)
-			this.pages[newSection].push(page)
+    changeSection(page, newSection) {
+      var index = page["family"].indexOf(page)
+      var eldest = page["family"][index - 1]
+      page["family"].splice(index, 1)
+      this.pages[newSection].push(page)
 
-			this.update(eldest)
-		},
+      this.update(eldest)
+    },
 
-		deletePage (page) {
-			if (confirm("Are you sure? This will permanently delete the page and all it's child pages.")) {
-				var index = page['family'].indexOf(page)
-				var eldest = page['family'][index - 1]
-				page['family'].splice(index, 1)
-				this.deletePageRecursion([page])
+    deletePage(page) {
+      if (
+        confirm(
+          "Are you sure? This will permanently delete the page and all it's child pages."
+        )
+      ) {
+        var index = page["family"].indexOf(page)
+        var eldest = page["family"][index - 1]
+        page["family"].splice(index, 1)
+        this.deletePageRecursion([page])
 
-				this.update(eldest)
-			}
-		},
+        this.update(eldest)
+      }
+    },
 
-		deletePageRecursion (pages) {
-			for (var i = 0; i < pages.length; i++) {
-				if (pages[i].id) {
-					this.deletedPages.push(pages[i].id)
-				}
-				if (pages[i].children.length > 0) {
-					this.deletePageRecursion(pages[i].children)
-				}
-			}
-		},
+    deletePageRecursion(pages) {
+      for (var i = 0; i < pages.length; i++) {
+        if (pages[i].id) {
+          this.deletedPages.push(pages[i].id)
+        }
+        if (pages[i].children.length > 0) {
+          this.deletePageRecursion(pages[i].children)
+        }
+      }
+    },
 
-		addPage (location) {
-			var newPage = {
-				name: 'New Page',
-				parent_id: null,
-				sorting: this.pages[location].length,
-				location: location,
-				depth: 0,
-				search: 1,
-				children: [],
-			}
+    addPage(location) {
+      var newPage = {
+        name: "New Page",
+        parent_id: null,
+        sorting: this.pages[location].length,
+        location: location,
+        depth: 0,
+        search: 1,
+        children: []
+      }
 
-			this.pages[location].push(newPage)
-		},
+      this.pages[location].push(newPage)
+    },
 
-		checkName(page) {
-			var helper = require('../helper.js')
+    checkName(page) {
+      var helper = require("../helper.js")
 
-			if (helper.testName(page.name)) {
-				return true
-			}
+      if (helper.testName(page.name)) {
+        return true
+      }
 
-			var index = page['family'].indexOf(page)
-			for (var i = 0; i < page['family'].length; i++) {
-				if (i != index && helper.makeSlug(page['family'][i].name) == helper.makeSlug(page.name)) {
-					return true
-				}
-			}
-			return false
-		}
-	}
+      var index = page["family"].indexOf(page)
+      for (var i = 0; i < page["family"].length; i++) {
+        if (
+          i != index &&
+          helper.makeSlug(page["family"][i].name) == helper.makeSlug(page.name)
+        ) {
+          return true
+        }
+      }
+      return false
+    }
+  }
 }
 </script>

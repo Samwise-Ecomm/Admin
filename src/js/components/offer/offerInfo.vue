@@ -33,7 +33,7 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['offer']
+export default {
+  props: ["offer"]
 }
 </script>

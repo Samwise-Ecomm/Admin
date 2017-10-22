@@ -76,27 +76,27 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			loaded: false,
-			typeSchema: {}
-		}
-	},
+export default {
+  data() {
+    return {
+      loaded: false,
+      typeSchema: {}
+    }
+  },
 
-	created () {
-		this.get()
-	},
+  created() {
+    this.get()
+  },
 
-	props: ['offer'],
+  props: ["offer"],
 
-	methods: {
-		get () {
-			this.$http.get('setting/type_schema/offer').then(response => {
-				this.loaded = true
-				this.$set('typeSchema', response.data)
-			})
-		}
-	}
+  methods: {
+    get() {
+      this.$http.get("setting/type_schema/offer").then(response => {
+        this.loaded = true
+        this.$set("typeSchema", response.data)
+      })
+    }
+  }
 }
 </script>

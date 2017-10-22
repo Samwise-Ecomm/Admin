@@ -15,45 +15,45 @@
 </template>
 
 <script>
-module.exports = {
-	data() {
-		return {
-			searchInput: ''
-		}
-	},
+export default {
+  data() {
+    return {
+      searchInput: ""
+    }
+  },
 
-	props: ['mode'],
+  props: ["mode"],
 
-	computed: {
-		query () {
-			if (this.mode == 'offers') {
-				return this.offersQuery
-			} else if (this.mode == 'invoices') {
-				return this.invoicesQuery
-			}
-		}
-	},
+  computed: {
+    query() {
+      if (this.mode == "offers") {
+        return this.offersQuery
+      } else if (this.mode == "invoices") {
+        return this.invoicesQuery
+      }
+    }
+  },
 
-	methods: {
-		search() {
-			this.changePage(this.mode, 0)
-			this.updateQuery(this.mode, this.searchInput)
-			this.$dispatch('GET')
-		},
+  methods: {
+    search() {
+      this.changePage(this.mode, 0)
+      this.updateQuery(this.mode, this.searchInput)
+      this.$dispatch("GET")
+    },
 
-		clear() {
-			this.searchInput = ''
-			this.search()
-		}
-	},
+    clear() {
+      this.searchInput = ""
+      this.search()
+    }
+  },
 
-	vuex: {
-		getters: {
-			invoicesQuery: state => state.invoices.query,
-			offersQuery: state => state.offers.query
-		},
+  vuex: {
+    getters: {
+      invoicesQuery: state => state.invoices.query,
+      offersQuery: state => state.offers.query
+    },
 
-		actions: require(`~/vuex/actions/dataTables.js`)
-	}
+    actions: require(`~/vuex/actions/dataTables.js`)
+  }
 }
 </script>

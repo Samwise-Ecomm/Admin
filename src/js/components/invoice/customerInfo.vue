@@ -41,28 +41,35 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['invoice'],
+export default {
+  props: ["invoice"],
 
-	watch: {
-		'invoice.store_notes': function() {
-			this.$http.patch(`/api/invoice/${this.invoice.id}`, { store_notes: this.invoice.store_notes }).then(response => {
-				this.$refs.noteStatus.check()
-			}, () => {
-				this.$refs.noteStatus.fail()
-			})
-		}
-	},
+  watch: {
+    "invoice.store_notes": function() {
+      this.$http
+        .patch(`/api/invoice/${this.invoice.id}`, {
+          store_notes: this.invoice.store_notes
+        })
+        .then(
+          response => {
+            this.$refs.noteStatus.check()
+          },
+          () => {
+            this.$refs.noteStatus.fail()
+          }
+        )
+    }
+  },
 
-	components: {
-		addressBlock: require('./addressBlock.vue'),
-		statusIcon: require('~/components/statusIcon.vue')
-	},
+  components: {
+    addressBlock: require("./addressBlock.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		notesKeyup() {
-			this.$refs.noteStatus.working()
-		}
-	}
+  methods: {
+    notesKeyup() {
+      this.$refs.noteStatus.working()
+    }
+  }
 }
 </script>

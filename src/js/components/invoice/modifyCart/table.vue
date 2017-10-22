@@ -24,23 +24,23 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['cart'],
+export default {
+  props: ["cart"],
 
-	components: {
-		row: require('./row.vue'),
-		newRow: require('./newRow.vue')
-	},
+  components: {
+    row: require("./row.vue"),
+    newRow: require("./newRow.vue")
+  },
 
-	computed: {
-		hasErrors () {
-			for (var i = 0; i < this.$refs.rows.length; i++) {
-				if (this.$refs.rows[i].hasError) {
-					return true
-				}
-			}
-			return false
-		}
-	}
+  computed: {
+    hasErrors() {
+      for (var i = 0; i < this.$refs.rows.length; i++) {
+        if (this.$refs.rows[i].hasError) {
+          return true
+        }
+      }
+      return false
+    }
+  }
 }
 </script>

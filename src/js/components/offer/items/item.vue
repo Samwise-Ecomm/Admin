@@ -6,12 +6,12 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['item'],
-	
-	components: {
-		generalForm: require('./generalForm.vue'),
-		typeForm: require('./typeForm.vue')
-	}
+export default {
+  props: ["item"],
+
+  components: {
+    generalForm: require("./generalForm.vue"),
+    typeForm: require("./typeForm.vue")
+  }
 }
 </script>

@@ -51,27 +51,30 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['cart', 'id'],
+export default {
+  props: ["cart", "id"],
 
-	components: {
-		statusIcon: require('~/components/statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		shippingCostInput (cost) {
-			this.$refs.shippingCost.working()
-			cost = parseInt(cost.replace(/[,.]/g, ''))
+  methods: {
+    shippingCostInput(cost) {
+      this.$refs.shippingCost.working()
+      cost = parseInt(cost.replace(/[,.]/g, ""))
 
-			this.$http.patch(`/api/invoice/${this.id}`, { shipping_cost: cost }).then(response => {
-				this.cart.due -= this.cart.shipping_cost
-				this.cart.shipping_cost = cost
-				this.cart.due += this.cart.shipping_cost
-				this.$refs.shippingCost.check()
-			}, () => {
-				this.$refs.shippingCost.fail()
-			})
-		}
-	}
+      this.$http.patch(`/api/invoice/${this.id}`, { shipping_cost: cost }).then(
+        response => {
+          this.cart.due -= this.cart.shipping_cost
+          this.cart.shipping_cost = cost
+          this.cart.due += this.cart.shipping_cost
+          this.$refs.shippingCost.check()
+        },
+        () => {
+          this.$refs.shippingCost.fail()
+        }
+      )
+    }
+  }
 }
 </script>

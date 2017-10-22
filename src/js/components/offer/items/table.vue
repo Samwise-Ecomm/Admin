@@ -23,11 +23,11 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['offer', 'expandedIndex'],
+export default {
+  props: ["offer", "expandedIndex"],
 
-	components: {
-		row: require('./row.vue')
-	}
+  components: {
+    row: require("./row.vue")
+  }
 }
 </script>

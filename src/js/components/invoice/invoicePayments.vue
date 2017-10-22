@@ -34,15 +34,15 @@
 
 <script>
 const frontZeros = (targetLength, string) => {
-	if (string.length === targetLength) return string;
-	return frontZeros(targetLength, `0${string}`);
+  if (string.length === targetLength) return string
+  return frontZeros(targetLength, `0${string}`)
 }
 
-module.exports = {
-	props: ['cart', 'payments'],
+export default {
+  props: ["cart", "payments"],
 
-	components: {
-		statusIcon: require('~/components/statusIcon.vue')
-	}
+  components: {
+    statusIcon: require("~/components/statusIcon.vue")
+  }
 }
 </script>

@@ -22,53 +22,53 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			buttonWidth: 0,
-			confirming: false,
-			disabled: false
-		}
-	},
+export default {
+  data() {
+    return {
+      buttonWidth: 0,
+      confirming: false,
+      disabled: false
+    }
+  },
 
-	props: ['icon', 'text', 'action', 'color'],
+  props: ["icon", "text", "action", "color"],
 
-	components: {
-		statusIcon: require('./statusIcon.vue')
-	},
+  components: {
+    statusIcon: require("./statusIcon.vue")
+  },
 
-	methods: {
-		confirmed () {
-			this.confirming = false
-			this.action()
-			this.$nextTick(() => {
-				this.working()
-			})
-		},
+  methods: {
+    confirmed() {
+      this.confirming = false
+      this.action()
+      this.$nextTick(() => {
+        this.working()
+      })
+    },
 
-		confirm () {
-			if (this.disabled) {
-				return
-			}
+    confirm() {
+      if (this.disabled) {
+        return
+      }
 
-			this.buttonWidth = this.$el.clientWidth
-			this.confirming = true
-		},
+      this.buttonWidth = this.$el.clientWidth
+      this.confirming = true
+    },
 
-		working () {
-			this.disabled = true
-			this.$refs.status.working()
-		},
+    working() {
+      this.disabled = true
+      this.$refs.status.working()
+    },
 
-		check () {
-			this.disabled = false
-			this.$refs.status.check()
-		},
+    check() {
+      this.disabled = false
+      this.$refs.status.check()
+    },
 
-		fail () {
-			this.disabled = false
-			this.$refs.status.fail()
-		}
-	}
+    fail() {
+      this.disabled = false
+      this.$refs.status.fail()
+    }
+  }
 }
 </script>

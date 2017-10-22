@@ -7,7 +7,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   components: {
     invoicesBox: require("~/components/invoices/box.vue")
   }

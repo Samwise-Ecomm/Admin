@@ -56,68 +56,93 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			id: this.$route.params.id,
-			loaded: false,
-			catalog: {},
-		}
-	},
+export default {
+  data() {
+    return {
+      id: this.$route.params.id,
+      loaded: false,
+      catalog: {}
+    }
+  },
 
-	route: {
-		data () {
-			this.getCatalog();
-		}
-	},
+  route: {
+    data() {
+      this.getCatalog()
+    }
+  },
 
-	components: {
-		'tags': require('~/components/tags.vue'),
-		'statusIcon': require('~/components/statusIcon.vue')
-	},
+  components: {
+    tags: require("~/components/tags.vue"),
+    statusIcon: require("~/components/statusIcon.vue")
+  },
 
-	methods: {
-		getCatalog () {
-			this.$http.get('catalog/' + this.id).then(function (response) {
-				this.$set('catalog', response.data)
-				this.loaded = true
-			})
-		},
+  methods: {
+    getCatalog() {
+      this.$http.get("catalog/" + this.id).then(function(response) {
+        this.$set("catalog", response.data)
+        this.loaded = true
+      })
+    },
 
-		discardChanges () {
-			if (confirm("Are you sure? This will discard all changes you have made so far.")) {
-				window.location.reload()
-			}
-		},
+    discardChanges() {
+      if (
+        confirm(
+          "Are you sure? This will discard all changes you have made so far."
+        )
+      ) {
+        window.location.reload()
+      }
+    },
 
-		saveCatalog () {
-			this.$refs.status.working()
+    saveCatalog() {
+      this.$refs.status.working()
 
-			this.$http.patch(`catalog/${this.catalog.id}`, this.catalog).then(function(response) {
-				if (response.data) {
-					this.$dispatch('notification', {type: 'info', title: 'Success', message: 'The catalog was saved.', timeout: 3})
-					this.getCatalog()
-				} else {
-					this.$dispatch('notification', {type: 'danger', title: 'Error', message: 'There was an error saving the catalog.', timeout: 0})
-				}
+      this.$http.patch(`catalog/${this.catalog.id}`, this.catalog).then(
+        function(response) {
+          if (response.data) {
+            this.$dispatch("notification", {
+              type: "info",
+              title: "Success",
+              message: "The catalog was saved.",
+              timeout: 3
+            })
+            this.getCatalog()
+          } else {
+            this.$dispatch("notification", {
+              type: "danger",
+              title: "Error",
+              message: "There was an error saving the catalog.",
+              timeout: 0
+            })
+          }
 
-				this.$refs.status.check()
-			}, function() { // Error Catcher
-				this.$refs.status.fail()
-			})
-		},
+          this.$refs.status.check()
+        },
+        function() {
+          // Error Catcher
+          this.$refs.status.fail()
+        }
+      )
+    },
 
-		deleteCatalog () {
-			if (confirm("Are you sure? This will permenantly delete the Catalog.")) {
-				this.$http.delete(`catalogs${this.catalog.id}`).then(function(response) {
-					if (response.data) {
-						this.$router.go('catalogs')
-					} else {
-						this.$dispatch('notification', {type: 'danger', title: 'Error', message: 'There was an error deleting the catalog.', timeout: 0})
-					}
-				})
-			}
-		}
-	}
+    deleteCatalog() {
+      if (confirm("Are you sure? This will permenantly delete the Catalog.")) {
+        this.$http
+          .delete(`catalogs${this.catalog.id}`)
+          .then(function(response) {
+            if (response.data) {
+              this.$router.go("catalogs")
+            } else {
+              this.$dispatch("notification", {
+                type: "danger",
+                title: "Error",
+                message: "There was an error deleting the catalog.",
+                timeout: 0
+              })
+            }
+          })
+      }
+    }
+  }
 }
 </script>

@@ -29,49 +29,49 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		if (this.tagString.length) {
-			 var tags = this.tagString.split(',')
-		} else {
-			 var tags = []
-		}
+export default {
+  data() {
+    if (this.tagString.length) {
+      var tags = this.tagString.split(",")
+    } else {
+      var tags = []
+    }
 
-		this.$http.get('tags').then(function(response) {
-			this.$set('tagList', response.data)
-		})
+    this.$http.get("tags").then(function(response) {
+      this.$set("tagList", response.data)
+    })
 
-		return {
-			tags: tags,
-			newTag: '',
-			tagList: [],
-		}
-	},
+    return {
+      tags: tags,
+      newTag: "",
+      tagList: []
+    }
+  },
 
-	props: ['tagString'],
+  props: ["tagString"],
 
-	watch: {
-		tagString () {
-			if (this.tagString.length) {
-				this.tags = this.tagString.split(',')
-			} else {
-				this.tags = []
-			}
-		},
+  watch: {
+    tagString() {
+      if (this.tagString.length) {
+        this.tags = this.tagString.split(",")
+      } else {
+        this.tags = []
+      }
+    },
 
-		tags () {
-			this.tagString = this.tags.join(',')
-		}
-	},
+    tags() {
+      this.tagString = this.tags.join(",")
+    }
+  },
 
-	methods: {
-		addTag: function() {
-			if ($.inArray(this.newTag, this.tags) == -1 && this.newTag != '') {
-				this.tags.push(this.newTag)
-			}
+  methods: {
+    addTag: function() {
+      if ($.inArray(this.newTag, this.tags) == -1 && this.newTag != "") {
+        this.tags.push(this.newTag)
+      }
 
-			this.newTag = ''
-		},
-	}
+      this.newTag = ""
+    }
+  }
 }
 </script>

@@ -60,35 +60,35 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {}
-	},
+export default {
+  data() {
+    return {}
+  },
 
-	computed: {
-		invalidCount () {
-			return !/^-?[0-9]+$/.test(this.item.count)
-		},
+  computed: {
+    invalidCount() {
+      return !/^-?[0-9]+$/.test(this.item.count)
+    },
 
-		invalidName () {
-			return this.item.name == ''
-		},
+    invalidName() {
+      return this.item.name == ""
+    },
 
-		hasError () {
-			return this.invalidCount || this.invalidName
-		}
-	},
+    hasError() {
+      return this.invalidCount || this.invalidName
+    }
+  },
 
-	props: ['item', 'index'],
+  props: ["item", "index"],
 
-	methods: {
-		changePrice (price) {
-			this.item.price = parseInt(price.replace(/[,.]/g, ''))
-		},
+  methods: {
+    changePrice(price) {
+      this.item.price = parseInt(price.replace(/[,.]/g, ""))
+    },
 
-		deleteItem () {
-			this.$dispatch('DELETE_ITEM_BY_INDEX', this.index)
-		}
-	}
+    deleteItem() {
+      this.$dispatch("DELETE_ITEM_BY_INDEX", this.index)
+    }
+  }
 }
 </script>

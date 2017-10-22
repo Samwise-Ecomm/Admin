@@ -33,21 +33,24 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['user', 'icon'],
+export default {
+  props: ["user", "icon"],
 
-	methods: {
-		set (privilege) {
-			var request = {}
-			this.icon.working()
-			request[privilege] = this.user[privilege]
+  methods: {
+    set(privilege) {
+      var request = {}
+      this.icon.working()
+      request[privilege] = this.user[privilege]
 
-			this.$http.patch(`user/${this.user.id}`, request).then(response => {
-				this.icon.check()
-			}, () => {
-				this.icon.fail()
-			})
-		}
-	}
+      this.$http.patch(`user/${this.user.id}`, request).then(
+        response => {
+          this.icon.check()
+        },
+        () => {
+          this.icon.fail()
+        }
+      )
+    }
+  }
 }
 </script>

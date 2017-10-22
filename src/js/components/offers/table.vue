@@ -10,12 +10,12 @@
 
 <script>
 // offers/table.vue
-module.exports = {
-	props: ['offers'],
+export default {
+  props: ["offers"],
 
-	components: {
-		row: require('./row.vue'),
-		sorters: require('./sorters.vue')
-	}
+  components: {
+    row: require("./row.vue"),
+    sorters: require("./sorters.vue")
+  }
 }
 </script>

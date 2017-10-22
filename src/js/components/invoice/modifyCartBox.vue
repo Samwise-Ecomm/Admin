@@ -16,7 +16,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   components: {
     statusIcon: require("~/components/statusIcon.vue")
   }

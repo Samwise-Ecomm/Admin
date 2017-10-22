@@ -9,17 +9,17 @@
 </template>
 
 <script>
-module.exports = {
-	data() {
-		return {
-			charging: false
-		}
-	},
+export default {
+  data() {
+    return {
+      charging: false
+    }
+  },
 
-	props: ['id'],
+  props: ["id"],
 
-	components: {
-		lightBox: require('./lightBox.vue')
-	}
+  components: {
+    lightBox: require("./lightBox.vue")
+  }
 }
 </script>

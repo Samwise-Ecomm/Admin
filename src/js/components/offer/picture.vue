@@ -21,24 +21,27 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['picture', 'index', 'pictures', 'deleted', 'offerId'],
+export default {
+  props: ["picture", "index", "pictures", "deleted", "offerId"],
 
-	methods: {
-		imgShift (shift) {
-			if (0 > this.index + shift || this.index + shift >= this.pictures.length) {
-				return
-			}
+  methods: {
+    imgShift(shift) {
+      if (
+        0 > this.index + shift ||
+        this.index + shift >= this.pictures.length
+      ) {
+        return
+      }
 
-			var save = this.pictures[this.index + shift]
-  		this.pictures[this.index + shift] = this.pictures[this.index]
-  		this.pictures.$set(this.index, save)
-		},
+      var save = this.pictures[this.index + shift]
+      this.pictures[this.index + shift] = this.pictures[this.index]
+      this.pictures.$set(this.index, save)
+    },
 
-		delete () {
-			this.deleted.push(this.picture.id)
-			this.pictures.splice(this.index,1)
-		}
-	}
+    delete() {
+      this.deleted.push(this.picture.id)
+      this.pictures.splice(this.index, 1)
+    }
+  }
 }
 </script>

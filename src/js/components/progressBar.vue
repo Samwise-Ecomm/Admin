@@ -5,62 +5,60 @@
 </template>
 
 <script>
-module.exports = {
-	data () {
-		return {
-			percent: 0,
-			step: 0,
-		}
-	},
+export default {
+  data() {
+    return {
+      percent: 0,
+      step: 0
+    }
+  },
 
-	computed: {
-		span () {
-			if (this.steps) {
-				return Math.ceil(100 / this.steps)	
-			} else {
-				return 100
-			}
-		},
+  computed: {
+    span() {
+      if (this.steps) {
+        return Math.ceil(100 / this.steps)
+      } else {
+        return 100
+      }
+    },
 
-		min () {
-			return this.span * this.step
-		},
+    min() {
+      return this.span * this.step
+    },
 
-		max () {
-			return (this.span + 1) * this.step
-		},
+    max() {
+      return (this.span + 1) * this.step
+    },
 
-		progress () {
-			return Math.ceil((this.span * this.percent) / 100) + this.min
-		}
-	},
+    progress() {
+      return Math.ceil(this.span * this.percent / 100) + this.min
+    }
+  },
 
-	watch: {
-		files () {
-			this.reset()
-		}
-	},
+  watch: {
+    files() {
+      this.reset()
+    }
+  },
 
-	props: ['steps'],
+  props: ["steps"],
 
-	watch: {
-		steps () {
-			this.reset()
-		}
-	},
+  watch: {
+    steps() {
+      this.reset()
+    }
+  },
 
-	methods: {
-		reset () {
-			this.progress = 0
-			this.step = 0
-		},
+  methods: {
+    reset() {
+      this.progress = 0
+      this.step = 0
+    },
 
-		next () {
-			this.step++
-			this.percent = 0
-		}
-	}
-
-
+    next() {
+      this.step++
+      this.percent = 0
+    }
+  }
 }
 </script>

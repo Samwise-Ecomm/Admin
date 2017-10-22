@@ -22,7 +22,7 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['address']
+export default {
+  props: ["address"]
 }
 </script>

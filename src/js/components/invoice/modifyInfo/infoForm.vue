@@ -48,17 +48,23 @@
 </template>
 
 <script>
-module.exports = {
-	props: ['phone', 'email', 'seperateBilling', 'shippingAddress', 'billingAddress'],
+export default {
+  props: [
+    "phone",
+    "email",
+    "seperateBilling",
+    "shippingAddress",
+    "billingAddress"
+  ],
 
-	components: {
-		contactFields: require('../contactFields.vue'),
-	},
+  components: {
+    contactFields: require("../contactFields.vue")
+  },
 
-	methods: {
-		setPhone(phone) {
-			this.phone = phone
-		}
-	}
+  methods: {
+    setPhone(phone) {
+      this.phone = phone
+    }
+  }
 }
 </script>

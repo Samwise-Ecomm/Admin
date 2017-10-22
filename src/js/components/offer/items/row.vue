@@ -68,7 +68,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   props: ["item", "index", "expandedIndex", "offer"],
 
   components: {
